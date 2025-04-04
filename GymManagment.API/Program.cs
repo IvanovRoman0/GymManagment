@@ -4,7 +4,10 @@ using GymManagement.Infrastructure.Repositories;
 using GymManagement.Services;
 using GymManagement.Services.Implementations;
 using GymManagement.Services.Interfaces;
+using GymManagment.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
 using System.Text.Json.Serialization;
 
@@ -21,9 +24,11 @@ builder.Services.AddDbContext<GymDbContext>(options =>
     options.UseNpgsql(
         builder.Configuration.GetConnectionString("GymDbContext"),
         npgsqlOptions => npgsqlOptions.EnableRetryOnFailure()));
-
+builder.Services.AddAutoMapper(typeof(ClientService), typeof(MembershipService));
 builder.Services.AddScoped<IClientRepository, ClientRepository>();
 builder.Services.AddScoped<IClientService, ClientService>();
+builder.Services.AddScoped<IMembershipRepository, MembershipRepository>();
+builder.Services.AddScoped<IMembershipService, MembershipService>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
@@ -34,7 +39,6 @@ builder.Services.AddSwaggerGen(c =>
         Version = "v1",
         Description = "API для сопртивного зала"
     });
-
     c.MapType<DateTime>(() => new OpenApiSchema { Type = "string", Format = "date-time" });
     c.MapType<DateTime?>(() => new OpenApiSchema { Type = "string", Format = "date-time", Nullable = true });
 });
@@ -52,14 +56,8 @@ if (app.Environment.IsDevelopment())
         c.DisplayRequestDuration();
         c.EnableDeepLinking();
     });
-
-    using (var scope = app.Services.CreateScope())
-    {
-        var dbContext = scope.ServiceProvider.GetRequiredService<GymDbContext>();
-        await dbContext.Database.MigrateAsync();
-    }
 }
-
+await app.MigrateDatabaseAsync();
 app.UseHttpsRedirection();
 app.UseRouting();
 
@@ -71,3 +69,12 @@ app.UseExceptionHandler("/ошибка");
 app.Map("/ошибка", () => Results.Problem("произошла ошибка."));
 
 app.Run();
+public static class WebApplicationExtensions
+{
+    public static async Task MigrateDatabaseAsync(this WebApplication app)
+    {
+        using var scope = app.Services.CreateScope();
+        var dbContext = scope.ServiceProvider.GetRequiredService<GymDbContext>();
+        await dbContext.Database.MigrateAsync();
+    }
+}

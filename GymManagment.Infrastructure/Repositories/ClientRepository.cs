@@ -18,7 +18,7 @@ namespace GymManagement.Infrastructure.Repositories
         }
         public async Task<Client> GetByIdAsync (int id)
         {
-            return await _context.Clients.FindAsync(id);
+            return await _context.Clients.AsNoTracking().FirstOrDefaultAsync(c => c.Id == id);
         }
         public async Task<IEnumerable<Client>> GetAllAsync()
         {
@@ -26,9 +26,7 @@ namespace GymManagement.Infrastructure.Repositories
         }
         public async Task AddAsync (Client client) 
         {
-            if (await EmailExistsAsync(client.Email))
-                throw new InvalidOperationException("электронная почта уже существует");
-            _context.Clients.Add(client);
+            await _context.Clients.AddAsync(client);
             await _context.SaveChangesAsync();
         }
         public async Task UpdateAsync(Client client) 

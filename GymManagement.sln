@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35919.96 d17.13
+VisualStudioVersion = 17.13.35919.96
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GymManagment.API", "GymManagment.API\GymManagment.API.csproj", "{8245F14E-A5FD-4F34-B707-8A25F50B75DB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GymManagement.API", "GymManagment.API\GymManagement.API.csproj", "{8245F14E-A5FD-4F34-B707-8A25F50B75DB}"
 	ProjectSection(ProjectDependencies) = postProject
 		{1EFA9F16-582B-4DFC-A7FE-A5835AB39AE3} = {1EFA9F16-582B-4DFC-A7FE-A5835AB39AE3}
 		{75820FEC-04EB-4CD6-8F41-C37ED7C80A9A} = {75820FEC-04EB-4CD6-8F41-C37ED7C80A9A}
@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GymManagment.API", "GymMana
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GymManagement.Core", "GymManagement.Core\GymManagement.Core.csproj", "{75820FEC-04EB-4CD6-8F41-C37ED7C80A9A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GymManagment.Infrastructure", "GymManagment.Infrastructure\GymManagment.Infrastructure.csproj", "{4B04F9A9-C143-4DE8-9BA0-AE0B19A3E64A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GymManagement.Infrastructure", "GymManagment.Infrastructure\GymManagement.Infrastructure.csproj", "{4B04F9A9-C143-4DE8-9BA0-AE0B19A3E64A}"
 	ProjectSection(ProjectDependencies) = postProject
 		{75820FEC-04EB-4CD6-8F41-C37ED7C80A9A} = {75820FEC-04EB-4CD6-8F41-C37ED7C80A9A}
 	EndProjectSection

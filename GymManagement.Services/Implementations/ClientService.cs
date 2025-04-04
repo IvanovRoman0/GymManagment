@@ -4,41 +4,43 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GymManagement.Services.Interfaces;
+using GymManagement.Core.DTOs;
 using GymManagement.Core.Entities;
 using GymManagement.Infrastructure.Repositories;
+using AutoMapper;
 
 namespace GymManagement.Services.Implementations
 {
     public class ClientService : IClientService
     {
         private readonly IClientRepository _clientRepository;
-        public ClientService(IClientRepository clientRepository)
+        private readonly IMapper _mapper;
+        public ClientService(IClientRepository clientRepository, IMapper mapper)
         {
             _clientRepository = clientRepository;
+            _mapper = mapper;
         }
-        public async Task<Client> GetByIdAsync(int id)
+        public async Task<ClientDto> GetByIdAsync(int id)
         {
-            return await _clientRepository.GetByIdAsync(id);
+            var client = await _clientRepository.GetByIdAsync(id);
+            return client == null ? null : _mapper.Map<ClientDto>(client);
         }
-        public async Task<IEnumerable<Client>> GetAllAsync()
+        public async Task<IEnumerable<ClientDto>> GetAllAsync()
         {
-            return await _clientRepository.GetAllAsync();
+            var client = await _clientRepository.GetAllAsync();
+            return _mapper.Map<IEnumerable<ClientDto>>(client);
         }
-        public async Task AddAsync(Client client)
+        public async Task AddAsync(ClientDto clientDto)
         {
-            if (client == null) throw new ArgumentNullException(nameof(client));
+            var client = Client.Create(clientDto.FirstName, clientDto.LastName, clientDto.PhoneNumber, clientDto.Email, clientDto.DateOfBirth, clientDto.Gender);
             await _clientRepository.AddAsync(client);
+            clientDto.Id = client.Id;
         }
-        public async Task UpdateAsync(int id, Client client)
+        public async Task UpdateAsync(int id, ClientDto clientDto)
         {
-            if (client == null) throw new ArgumentNullException(nameof(client));
-            var existingClient = await _clientRepository.GetByIdAsync(id);
-            if (existingClient == null) throw new KeyNotFoundException("клиент не найден");
-
-            existingClient.UpdatePersonalInfo(client.FirstName, client.LastName, client.PhoneNumber);
-            existingClient.SetDateOfBirth(client.DateOfBirth);
-            existingClient.SetGender(client.Gender);
-            await _clientRepository.UpdateAsync(existingClient);
+            var client = await _clientRepository.GetByIdAsync(id) ?? throw new KeyNotFoundException("Клиент не найден");
+            _mapper.Map(clientDto, client);
+            await _clientRepository.UpdateAsync(client);
         }
         public async Task DeleteAsync(int id)
         {

@@ -14,6 +14,7 @@ namespace GymManagement.Infrastructure.DbContexts
         {
         }
         public DbSet <Client> Clients { get; set; }
+        public DbSet<Membership> Memberships { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -22,19 +23,16 @@ namespace GymManagement.Infrastructure.DbContexts
                 .Property(c => c.Id)
                 .HasColumnName("id")
                 .HasColumnType("integer");
-
             modelBuilder.Entity<Client>()
                 .Property(c => c.FirstName)
                 .HasColumnName("first_name")
                 .IsRequired()
                 .HasMaxLength(50);
-
             modelBuilder.Entity<Client>()
                 .Property(c => c.LastName)
                 .HasColumnName("last_name")
                 .IsRequired()
                 .HasMaxLength(50);
-
             modelBuilder.Entity<Client>()
                 .Property (c => c.Email)
                 .HasColumnName("email")
@@ -57,8 +55,23 @@ namespace GymManagement.Infrastructure.DbContexts
                 .Property(c => c.RegistrationDate)
                 .HasColumnName("registration_date")
                 .HasColumnType("date");
-
+         
+            modelBuilder.Entity<Membership>(entity =>
+            {
+                entity.ToTable("memberships", "Gym");
+                entity.Property(m => m.Id)
+                .HasColumnName("id")
+                .HasColumnType("integer");
+                entity.Property(m => m.MembershipType)
+                .HasColumnName("membership_type")
+                .IsRequired();
+                entity.Property(m => m.Price)
+                .HasColumnName("price")
+                .HasColumnType("decimal(10,2)");
+            
+            }); 
             base.OnModelCreating(modelBuilder);
         }
     }
 }
+

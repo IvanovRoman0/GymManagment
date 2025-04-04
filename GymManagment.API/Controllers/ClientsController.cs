@@ -4,11 +4,12 @@ using System.Threading.Tasks;
 using GymManagement.Core.DTOs;
 using GymManagement.Core.Entities;
 using GymManagement.Services.Interfaces;
+using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace GymManagement.API.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/clients")]
     public class ClientsController : ControllerBase
     {
         private readonly IClientService _clientService;
@@ -21,81 +22,29 @@ namespace GymManagement.API.Controllers
         [HttpPost("Создание клиента")]
         public async Task<IActionResult> Create([FromBody] ClientDto clientDto)
         {
-            try
-            {
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest(ModelState);
-                }
-
-                var client = new Client(
-                    clientDto.FirstName,
-                    clientDto.LastName,
-                    clientDto.PhoneNumber,
-                    clientDto.Email);
-
-                if (clientDto.DateOfBirth.HasValue)
-                {
-                    client.SetDateOfBirth(clientDto.DateOfBirth.Value);
-                }
-
-                if (!string.IsNullOrEmpty(clientDto.Gender))
-                {
-                    client.SetGender(clientDto.Gender);
-                }
-
-                await _clientService.AddAsync(client);
-
-                return CreatedAtAction(
-                    nameof(GetById),
-                    new { id = client.Id },
-                    MapToDto(client));
-            }
-            catch (ArgumentException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (InvalidOperationException ex)
-            {
-                return Conflict(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, ex.Message);
-            }
+            await _clientService.AddAsync(clientDto);
+            var createdClient = await _clientService.GetByIdAsync(clientDto.Id);
+            return CreatedAtAction(nameof(GetById), new {id = clientDto.Id}, clientDto);
         }
 
-        [HttpGet("выбор id")]
+        [HttpGet("выбор id клиента")]
         public async Task<IActionResult> GetById(int id)
         {
-            try
-            {
-                var client = await _clientService.GetByIdAsync(id);
-                if (client == null)
-                {
-                    return NotFound();
-                }
-
-                return Ok(MapToDto(client));
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, ex.Message);
-            }
+            var client = await _clientService.GetByIdAsync(id);
+            return client == null ? NotFound() : Ok(client);
         }
-        private ClientDto MapToDto(Client client)
+        [HttpPut("изменения клиента")]
+        public async Task<IActionResult>Update(int id, [FromBody] ClientDto clientDto)
         {
-            return new ClientDto
-            {
-                Id = client.Id,
-                FirstName = client.FirstName,
-                LastName = client.LastName,
-                PhoneNumber = client.PhoneNumber,
-                Email = client.Email,
-                DateOfBirth = client.DateOfBirth,
-                Gender = client.Gender,
-                RegistrationDate = client.RegistrationDate
-            };
+            if (id != clientDto.Id) return BadRequest();
+            await _clientService.UpdateAsync(id, clientDto);
+            return NoContent();
+        }
+        [HttpDelete("Удаление клиента")]
+        public async Task<IActionResult>Delete(int id)
+        {
+            await _clientService.DeleteAsync(id);
+            return NoContent();
         }
     }
 }
