@@ -24,7 +24,7 @@ namespace GymManagement.Core.Entities
         public Gender? Gender { get; private set; }
         public DateTime RegistrationDate { get; private set; }
 
-        public void  UpdatePersonalInfo (string firstName, string lastName, string phoneNumber)
+        public void UpdatePersonalInfo (string firstName, string lastName, string phoneNumber)
         {
             FirstName = firstName;
             LastName = lastName;

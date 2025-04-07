@@ -3,8 +3,9 @@ using System;
 using System.Threading.Tasks;
 using GymManagement.Core.DTOs;
 using GymManagement.Services.Interfaces;
+using GymManagement.Core.Results;
 
-namespace GymManagment.API.Controllers
+namespace GymManagement.API.Controllers
 {
     [ApiController]
     [Route("api/Membership")]
@@ -18,31 +19,29 @@ namespace GymManagment.API.Controllers
         }
 
         [HttpPost("создание абонимента")]
-        public async Task<ActionResult<MembershipDto>> Create([FromBody] MembershipDto membershipDto)
+        public async Task<IActionResult> Create([FromBody] MembershipDto membershipDto)
         {
-            await _membershipService.AddAsync(membershipDto);
-            var createdMembership = await _membershipService.GetByIdAsync(membershipDto.Id);
-            return CreatedAtAction(nameof(GetById), new {id = membershipDto.Id}, membershipDto);
+           var result = await _membershipService.CreateMembershipAsync(membershipDto);
+            return result.ToActionResult();
         }
 
         [HttpGet("выбор id абонимента")]
-        public async Task<ActionResult<MembershipDto>> GetById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
-            var result = await _membershipService.GetByIdAsync(id);
-            return result == null ? NotFound() : Ok(result);
+            var result = await _membershipService.GetMembershipByIdAsync(id);
+            return result.ToActionResult();
         }
         [HttpPut("изменения абонимента")]
         public async Task<IActionResult> Update(int id, MembershipDto membershipDto)
         {
-            if (id != membershipDto.Id) return BadRequest();
-            await _membershipService.UpdateAsync(id, membershipDto);
-            return NoContent();
+            var result = await _membershipService.UpdateMembershipAsync(id, membershipDto);
+            return result.ToActionResult();
         }
         [HttpDelete("удаление абонимента")]
         public async Task<IActionResult> Delete(int id)
         {
-            await _membershipService.DeleteAsync(id);
-            return NoContent();
+            var result = await _membershipService.DeleteMembershipAsync(id);
+            return result.ToActionResult();
         }
 
     }

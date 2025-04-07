@@ -46,6 +46,7 @@ namespace GymManagement.Infrastructure.DbContexts
             modelBuilder.Entity<Client>()
                 .Property(c => c.Gender)
                 .HasColumnName("gender")
+                .HasConversion<string>()
                 .HasMaxLength(11);
             modelBuilder.Entity<Client>()
                 .Property(c => c.DateOfBirth)

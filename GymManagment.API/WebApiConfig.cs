@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Http;
 
-namespace GymManagment.API
+namespace GymManagement.API
 {
     public static class WebApiConfig
     {

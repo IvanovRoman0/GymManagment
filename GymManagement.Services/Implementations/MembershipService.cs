@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 using GymManagement.Services.Interfaces;
 using GymManagement.Core.DTOs;
 using GymManagement.Core.Entities;
-using GymManagment.Infrastructure.Repositories;
+using GymManagement.Infrastructure.Repositories;
 using System.Runtime.InteropServices;
 using AutoMapper;
+using GymManagement.Core.Results;
 
 namespace GymManagement.Services.Implementations
 {
@@ -21,32 +22,72 @@ namespace GymManagement.Services.Implementations
             _MembershipRepository = membershipRepository;
             _mapper = mapper;
         }
-        public async Task<MembershipDto> GetByIdAsync(int id)
+        public async Task<ServiceResult<MembershipDto>> CreateMembershipAsync(MembershipDto membershipDto)
+        {
+            try
+            {
+                if (await _MembershipRepository.ExistsByTypeAsync(membershipDto.MembershipType))
+                    return ServiceResult<MembershipDto>.Failure("Тип абонемента уже существует");
+                var membership = Membership.Create(membershipDto.MembershipType, membershipDto.Price);
+                await _MembershipRepository.AddAsync(membership);
+                membershipDto.Id = membership.Id;
+                return ServiceResult<MembershipDto>.Success(membershipDto);
+            }
+            catch (Exception ex)
+            {
+                return ServiceResult<MembershipDto>.Failure(ex.Message);
+            }
+        }
+        public async Task<ServiceResult<MembershipDto>> GetMembershipByIdAsync(int id)
         {
             var membership = await _MembershipRepository.GetByIdAsync(id);
-            return _mapper.Map<MembershipDto>(membership);
+            return membership == null ? ServiceResult<MembershipDto>.Failure("Абонемент не найден")
+                : ServiceResult<MembershipDto>.Success(_mapper.Map<MembershipDto>(membership));
         }
-        public async Task<IEnumerable<MembershipDto>> GetAllAsync()
+        public async Task<ServiceResult<MembershipDto>> UpdateMembershipAsync(int id, MembershipDto membershipDto)
         {
-            var membership = await _MembershipRepository.GetAllAsync();
-            return _mapper.Map<IEnumerable<MembershipDto>>(membership);
+            try
+            {
+                if (id != membershipDto.Id)
+                    return ServiceResult<MembershipDto>.Failure("ID абонемента не совпадает");
+                var existingMembership = await _MembershipRepository.GetByIdAsync(id);
+                if (existingMembership == null)
+                    return ServiceResult<MembershipDto>.Failure("абонемент не найден");
+                existingMembership.UpdateInfo(membershipDto.MembershipType, membershipDto.Price);
+                await _MembershipRepository.UpdateAsync(existingMembership);
+                return ServiceResult<MembershipDto>.Success(_mapper.Map<MembershipDto>(existingMembership));
+            }
+            catch (Exception ex)
+            {
+                return ServiceResult<MembershipDto>.Failure(ex.Message);
+            }
         }
-        public async Task AddAsync(MembershipDto membershipDto)
+        public async Task<ServiceResult<bool>> DeleteMembershipAsync(int id)
         {
-            var membership = new Membership(membershipDto.MembershipType, membershipDto.Price);
-            await _MembershipRepository.AddAsync(membership);
-            membershipDto.Id = membership.Id;
-            
+            try
+            {
+                var membership = await _MembershipRepository.GetByIdAsync(id);
+                if (membership == null)
+                    return ServiceResult<bool>.Failure("Абонемент не найден");
+                await _MembershipRepository.DeleteAsync(id);
+                return ServiceResult<bool>.Success(true);
+            }
+            catch (Exception ex)
+            {
+                return ServiceResult<bool>.Failure(ex.Message);
+            }
         }
-        public async Task UpdateAsync(int id, MembershipDto membershipDto)
+        public async Task<ServiceResult<bool>> MembershipTypeExistsAsync(string membershipType)
         {
-            var membership = await _MembershipRepository.GetByIdAsync(id) ?? throw new KeyNotFoundException("Абонемент не найден");
-            _mapper.Map(membershipDto, membership);
-            await _MembershipRepository.UpdateAsync(membership);
-        }
-        public async Task DeleteAsync(int id)
-        {
-            await _MembershipRepository.DeleteAsync(id);
+            try
+            {
+                var exists = await _MembershipRepository.ExistsByTypeAsync(membershipType);
+                return ServiceResult<bool>.Success(exists);
+            }
+            catch (Exception ex)
+            {
+                return ServiceResult<bool>.Failure(ex.Message);
+            }
         }
     }
 }

@@ -4,7 +4,6 @@ using GymManagement.Infrastructure.Repositories;
 using GymManagement.Services;
 using GymManagement.Services.Implementations;
 using GymManagement.Services.Interfaces;
-using GymManagment.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Any;

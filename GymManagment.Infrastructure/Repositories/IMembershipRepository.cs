@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using GymManagement.Core.Entities;
 
-namespace GymManagment.Infrastructure.Repositories
+namespace GymManagement.Infrastructure.Repositories
 {
     public interface IMembershipRepository
     {

@@ -7,7 +7,7 @@ using GymManagement.Core.Entities;
 using GymManagement.Infrastructure.DbContexts;
 using Microsoft.EntityFrameworkCore;
 
-namespace GymManagment.Infrastructure.Repositories
+namespace GymManagement.Infrastructure.Repositories
 {
     public class MembershipRepository : IMembershipRepository
     {
