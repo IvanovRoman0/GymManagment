@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using GymManagement.Core.Entities;
 using GymManagement.Infrastructure.DbContexts;
@@ -17,41 +15,41 @@ namespace GymManagement.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<Membership> GetByIdAsync(int id)
+        public async Task<Membership> GetByIdAsync(int id, CancellationToken cancellationToken = default)
         {
-            return await _context.Memberships.AsNoTracking().FirstOrDefaultAsync(m => m.Id == id);
+            return await _context.Memberships.AsNoTracking().FirstOrDefaultAsync(m => m.Id == id, cancellationToken);
         }
 
-        public async Task<IEnumerable<Membership>> GetAllAsync()
+        public async Task<IEnumerable<Membership>> GetAllAsync(CancellationToken cancellationToken = default)
         {
-            return await _context.Memberships.AsNoTracking().ToListAsync();
+            return await _context.Memberships.AsNoTracking().ToListAsync(cancellationToken);
         }
 
-        public async Task AddAsync(Membership membership)
+        public async Task AddAsync(Membership membership, CancellationToken cancellationToken = default)
         {
-            _context.Memberships.Add(membership);
-            await _context.SaveChangesAsync();
+            await _context.Memberships.AddAsync(membership, cancellationToken);
+            await _context.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task DeleteAsync(int id, CancellationToken cancellationToken = default)
         {
             var membership = await _context.Memberships.FindAsync(id);
             if (membership != null)
             {
                 _context.Memberships.Remove(membership);
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync(cancellationToken);
             }
         }
 
-        public async Task UpdateAsync(Membership membership)
+        public async Task UpdateAsync(Membership membership, CancellationToken cancellationToken = default)
         {
             _context.Entry(membership).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task<bool> ExistsByTypeAsync(string membershiptype)
+        public async Task<bool> ExistsByTypeAsync(string membershiptype, CancellationToken cancellationToken = default)
         {
-            return await _context.Memberships.AnyAsync(m => m.MembershipType ==  membershiptype);
+            return await _context.Memberships.AnyAsync(m => m.MembershipType ==  membershiptype, cancellationToken);
         }
     }
 }

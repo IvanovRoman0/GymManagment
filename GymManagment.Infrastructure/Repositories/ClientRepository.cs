@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using GymManagement.Core.Entities;
 using GymManagement.Infrastructure.DbContexts;
@@ -16,36 +14,36 @@ namespace GymManagement.Infrastructure.Repositories
         {
             _context = context;
         }
-        public async Task<Client> GetByIdAsync (int id)
+        public async Task<Client> GetByIdAsync (int id, CancellationToken cancellationToken)
         {
-            return await _context.Clients.AsNoTracking().FirstOrDefaultAsync(c => c.Id == id);
+            return await _context.Clients.AsNoTracking().FirstOrDefaultAsync(c => c.Id == id, cancellationToken);
         }
-        public async Task<IEnumerable<Client>> GetAllAsync()
+        public async Task<IEnumerable<Client>> GetAllAsync(CancellationToken cancellationToken)
         {
-            return await _context.Clients.AsNoTracking().ToListAsync();
+            return await _context.Clients.AsNoTracking().ToListAsync(cancellationToken);
         }
-        public async Task AddAsync (Client client) 
+        public async Task AddAsync (Client client, CancellationToken cancellationToken) 
         {
-            await _context.Clients.AddAsync(client);
-            await _context.SaveChangesAsync();
+            await _context.Clients.AddAsync(client, cancellationToken);
+            await _context.SaveChangesAsync(cancellationToken);
         }
-        public async Task UpdateAsync(Client client) 
+        public async Task UpdateAsync(Client client, CancellationToken cancellationToken) 
         {
             _context.Entry(client).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(cancellationToken);
         }
-        public async Task DeleteAsync (int id)
+        public async Task DeleteAsync (int id, CancellationToken cancellationToken)
         {
-            var client = await GetByIdAsync(id);
+            var client = await _context.Clients.FindAsync(id);
             if (client != null)
             {
                 _context.Clients.Remove(client);
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync(cancellationToken);
             }
         }
-        public async Task<bool> EmailExistsAsync(string email)
+        public async Task<bool> EmailExistsAsync(string email, CancellationToken cancellationToken)
         {
-            return await _context.Clients.AnyAsync(x => x.Email == email);
+            return await _context.Clients.AnyAsync(x => x.Email == email, cancellationToken);
         }
     }
 }

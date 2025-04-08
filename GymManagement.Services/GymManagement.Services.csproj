@@ -75,8 +75,10 @@
   <ItemGroup>
     <Compile Include="Implementations\ClientService.cs" />
     <Compile Include="Implementations\MembershipService.cs" />
+    <Compile Include="Implementations\TrainerService.cs" />
     <Compile Include="Interfaces\IClientService.cs" />
     <Compile Include="Interfaces\IMembershipService.cs" />
+    <Compile Include="Interfaces\ITrainerService.cs" />
     <Compile Include="Mapping\ClientProfile.cs" />
     <Compile Include="Mapping\MembershipProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using GymManagement.Core.Entities;
 
@@ -9,11 +7,11 @@ namespace GymManagement.Infrastructure.Repositories
 {
     public interface IClientRepository
     {
-        Task<Client> GetByIdAsync(int id);
-        Task<IEnumerable<Client>> GetAllAsync();
-        Task AddAsync(Client client);
-        Task UpdateAsync(Client client);
-        Task DeleteAsync(int id);
-        Task<bool> EmailExistsAsync(string email);
+        Task<Client> GetByIdAsync(int id, CancellationToken cancellationToken = default);
+        Task<IEnumerable<Client>> GetAllAsync(CancellationToken cancellationToken = default);
+        Task AddAsync(Client client, CancellationToken cancellationToken = default);
+        Task UpdateAsync(Client client, CancellationToken cancellationToken = default);
+        Task DeleteAsync(int id, CancellationToken cancellationToken = default);
+        Task<bool> EmailExistsAsync(string email, CancellationToken cancellationToken = default);
     }
 }

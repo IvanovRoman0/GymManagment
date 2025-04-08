@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using GymManagement.Core.Entities;
 using GymManagement.Core.DTOs;
 namespace GymManagement.Services.Mapping
@@ -23,7 +18,6 @@ namespace GymManagement.Services.Mapping
                 .ForMember(dest => dest.Id, opt => opt.Ignore())
                 .ForMember(dest => dest.RegistrationDate, opt => opt.Ignore());
             CreateMap<Client, ClientDto>();
-
         }
     }
 }

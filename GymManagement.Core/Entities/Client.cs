@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GymManagement.Core.Entities
 {
@@ -16,30 +12,14 @@ namespace GymManagement.Core.Entities
             Email = email;
             RegistrationDate = DateTime.Now;
         }
-        public string FirstName { get; private set; }
-        public string LastName { get; private set; }
-        public string PhoneNumber { get; private set; }
-        public string Email { get; private set; }
-        public DateTime? DateOfBirth { get; private set; }
-        public Gender? Gender { get; private set; }
-        public DateTime RegistrationDate { get; private set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string PhoneNumber { get; set; }
+        public string Email { get; set; }
+        public DateTime? DateOfBirth { get; set; }
+        public Gender? Gender { get; set; }
+        public DateTime RegistrationDate { get; set; }
 
-        public void UpdatePersonalInfo (string firstName, string lastName, string phoneNumber)
-        {
-            FirstName = firstName;
-            LastName = lastName;
-            PhoneNumber = phoneNumber;
-        }
-
-        public void SetDateOfBirth(DateTime? dateOfBirth)
-        {
-            DateOfBirth = dateOfBirth;
-        }
-
-        public void SetGender(Gender? gender)
-        {
-            Gender = gender;
-        }
         public static Client Create(
             string firstName,
             string lastName,
@@ -48,8 +28,11 @@ namespace GymManagement.Core.Entities
             DateTime? dateOfBirth,
             Gender? gender)
         {
-            var client = new Client(firstName, lastName, phoneNumber, email);
-            if (dateOfBirth.HasValue) client.SetDateOfBirth(dateOfBirth.Value); 
+            var client = new Client(firstName, lastName, phoneNumber, email)
+            {
+                DateOfBirth = dateOfBirth,
+                Gender = gender
+            }; 
             return client;
         }
     }

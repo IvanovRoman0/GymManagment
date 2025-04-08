@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Threading.Tasks;
 using GymManagement.Core.DTOs;
 using GymManagement.Services.Interfaces;
 using GymManagement.Core.Results;
@@ -19,30 +17,29 @@ namespace GymManagement.API.Controllers
         }
 
         [HttpPost("создание абонимента")]
-        public async Task<IActionResult> Create([FromBody] MembershipDto membershipDto)
+        public async Task<IActionResult> Create([FromBody] MembershipDto membershipDto, CancellationToken cancellationToken)
         {
-           var result = await _membershipService.CreateMembershipAsync(membershipDto);
+           var result = await _membershipService.CreateMembershipAsync(membershipDto, cancellationToken);
             return result.ToActionResult();
         }
 
         [HttpGet("выбор id абонимента")]
-        public async Task<IActionResult> GetById(int id)
+        public async Task<IActionResult> GetById(int id, CancellationToken cancellationToken)
         {
-            var result = await _membershipService.GetMembershipByIdAsync(id);
+            var result = await _membershipService.GetMembershipByIdAsync(id, cancellationToken);
             return result.ToActionResult();
         }
         [HttpPut("изменения абонимента")]
-        public async Task<IActionResult> Update(int id, MembershipDto membershipDto)
+        public async Task<IActionResult> Update(int id, MembershipDto membershipDto, CancellationToken cancellationToken)
         {
-            var result = await _membershipService.UpdateMembershipAsync(id, membershipDto);
+            var result = await _membershipService.UpdateMembershipAsync(id, membershipDto, cancellationToken);
             return result.ToActionResult();
         }
         [HttpDelete("удаление абонимента")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(int id, CancellationToken cancellationToken)
         {
-            var result = await _membershipService.DeleteMembershipAsync(id);
+            var result = await _membershipService.DeleteMembershipAsync(id, cancellationToken);
             return result.ToActionResult();
         }
-
     }
 }

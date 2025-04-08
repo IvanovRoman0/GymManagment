@@ -1,12 +1,8 @@
-using GymManagement.Core.Entities;
 using GymManagement.Infrastructure.DbContexts;
 using GymManagement.Infrastructure.Repositories;
-using GymManagement.Services;
 using GymManagement.Services.Implementations;
 using GymManagement.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
 using System.Text.Json.Serialization;
 
