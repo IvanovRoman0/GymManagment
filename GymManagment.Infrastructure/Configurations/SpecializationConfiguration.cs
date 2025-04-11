@@ -9,18 +9,20 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace GymManagment.Infrastructure.Configurations
 {
-    public class SpicializationConfiguration : IEntityTypeConfiguration<Specialization>
+    public class SpecializationConfiguration : IEntityTypeConfiguration<Specialization>
     {
         public void Configure(EntityTypeBuilder<Specialization> builder)
         {
             builder.ToTable("specialization", "Gym");
+            builder.HasKey(s => s.Id);
             builder.Property(s => s.Id)
                 .HasColumnName("id")
-                .HasColumnType("integer");
+                .HasColumnType("integer")
+                .ValueGeneratedOnAdd();
             builder.Property(s => s.SpecializationName)
                 .HasColumnName("specialization_name")
+                .IsRequired()
                 .HasMaxLength(100);
-                
         }
     }
 }

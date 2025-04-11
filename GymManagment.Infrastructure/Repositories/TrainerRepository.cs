@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using GymManagement.Core.Entities;
 using GymManagement.Infrastructure.DbContexts;
-using GymManagement.Infrastructure.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace GymManagment.Infrastructure.Repositories
 {
@@ -19,15 +16,15 @@ namespace GymManagment.Infrastructure.Repositories
         }
         public async Task<Trainer> GetByIdAsync(int id, CancellationToken cancellationToken)
         {
-            return await _context.Trainer.Include(testc => t.Specialization).AsNoTracking().FirstOrDefaultAsync(c => c.Id == id, cancellationToken);
+            return await _context.Trainers.Include(t => t.Specialization).AsNoTracking().FirstOrDefaultAsync(c => c.Id == id, cancellationToken);
         }
         public async Task<IEnumerable<Trainer>> GetAllAsync(CancellationToken cancellationToken)
         {
-            return await _context.Trainer.Include(testc => t.Specialization).AsNoTracking().ToListAsync(cancellationToken);
+            return await _context.Trainers.Include(t => t.Specialization).AsNoTracking().ToListAsync(cancellationToken);
         }
         public async Task AddAsync(Trainer trainer, CancellationToken cancellationToken)
         {
-            await _context.Trainer.AddAsync(trainer, cancellationToken);
+            await _context.Trainers.AddAsync(trainer, cancellationToken);
             await _context.SaveChangesAsync(cancellationToken);
         }
         public async Task UpdateAsync(Trainer trainer, CancellationToken cancellationToken)
@@ -37,16 +34,16 @@ namespace GymManagment.Infrastructure.Repositories
         }
         public async Task DeleteAsync(int id, CancellationToken cancellationToken)
         {
-            var trainer = await _context.Trainer.FindAsync(id);
+            var trainer = await _context.Trainers.FindAsync(id);
             if (trainer != null)
             {
-                _context.Trainer.Remove(trainer);
+                _context.Trainers.Remove(trainer);
                 await _context.SaveChangesAsync(cancellationToken);
             }
         }
         public async Task<bool> EmailExistsAsync(string email, CancellationToken cancellationToken)
         {
-            return await _context.Trainer.AnyAsync(x => x.Email == email, cancellationToken);
+            return await _context.Trainers.AnyAsync(x => x.Email == email, cancellationToken);
         }
     }
 }

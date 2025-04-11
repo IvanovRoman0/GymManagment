@@ -2,6 +2,7 @@ using GymManagement.Infrastructure.DbContexts;
 using GymManagement.Infrastructure.Repositories;
 using GymManagement.Services.Implementations;
 using GymManagement.Services.Interfaces;
+using GymManagment.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using System.Text.Json.Serialization;
@@ -19,11 +20,19 @@ builder.Services.AddDbContext<GymDbContext>(options =>
     options.UseNpgsql(
         builder.Configuration.GetConnectionString("GymDbContext"),
         npgsqlOptions => npgsqlOptions.EnableRetryOnFailure()));
-builder.Services.AddAutoMapper(typeof(ClientService), typeof(MembershipService));
+builder.Services.AddAutoMapper(
+    typeof(ClientService),
+    typeof(MembershipService),
+    typeof(TrainerService));
+
 builder.Services.AddScoped<IClientRepository, ClientRepository>();
 builder.Services.AddScoped<IClientService, ClientService>();
 builder.Services.AddScoped<IMembershipRepository, MembershipRepository>();
 builder.Services.AddScoped<IMembershipService, MembershipService>();
+builder.Services.AddScoped<ITrainerRepository, TrainerRepository>();
+builder.Services.AddScoped<ITrainerService, TrainerService>();
+builder.Services.AddScoped<ISpeciaizationRepository, SpecializationRepository>();
+builder.Services.AddScoped<ISpecializationService, SpecializationService>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>

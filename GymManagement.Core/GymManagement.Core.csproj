@@ -167,6 +167,7 @@
   <ItemGroup>
     <Compile Include="DTOs\ClientDto.cs" />
     <Compile Include="DTOs\MembershipDto.cs" />
+    <Compile Include="DTOs\SpecializationDto.cs" />
     <Compile Include="DTOs\TrainerDto.cs" />
     <Compile Include="Entities\BaseEntity.cs" />
     <Compile Include="Entities\Client.cs" />

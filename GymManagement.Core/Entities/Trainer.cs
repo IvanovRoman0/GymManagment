@@ -27,6 +27,7 @@ namespace GymManagement.Core.Entities
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
         public int? SpecializationId { get; set; }
+        public virtual Specialization Specialization { get; set; }
         
         public static Trainer Create(
             string firstName,
