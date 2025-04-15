@@ -23,7 +23,11 @@ builder.Services.AddDbContext<GymDbContext>(options =>
 builder.Services.AddAutoMapper(
     typeof(ClientService),
     typeof(MembershipService),
-    typeof(TrainerService));
+    typeof(TrainerService),
+    typeof(SpecializationService),
+    typeof(GymService),
+    typeof(EquipmentService),
+     typeof(ClassService));
 
 builder.Services.AddScoped<IClientRepository, ClientRepository>();
 builder.Services.AddScoped<IClientService, ClientService>();
@@ -33,6 +37,8 @@ builder.Services.AddScoped<ITrainerRepository, TrainerRepository>();
 builder.Services.AddScoped<ITrainerService, TrainerService>();
 builder.Services.AddScoped<ISpeciaizationRepository, SpecializationRepository>();
 builder.Services.AddScoped<ISpecializationService, SpecializationService>();
+builder.Services.AddScoped<IGymRepository, GymRepository>();
+builder.Services.AddScoped<IGymService, GymService>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>

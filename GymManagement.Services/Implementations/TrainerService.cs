@@ -67,6 +67,8 @@ namespace GymManagement.Services.Implementations
         {
             try
             {
+                if (!await _trainerRepository.ExistsAsync(id, cancellationToken))
+                    return ServiceResult<TrainerDto>.Failure("Тренер не найден", 404);
                 if (id != trainer.Id)
                     return ServiceResult<TrainerDto>.Failure("ID тренера не совпадает");
                 var existingTrainer = await _trainerRepository.GetByIdAsync(id, cancellationToken);

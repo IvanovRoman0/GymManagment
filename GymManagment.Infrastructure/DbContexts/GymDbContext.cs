@@ -12,6 +12,9 @@ namespace GymManagement.Infrastructure.DbContexts
         public DbSet<Membership> Memberships { get; set; }
         public DbSet<Trainer> Trainers { get; set; }
         public DbSet<Specialization> Specializations { get; set; }
+        public DbSet<Gym> Gyms { get; set; }
+        public DbSet<Equipment> Equipment { get; set; }
+        public DbSet<Class> Classes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

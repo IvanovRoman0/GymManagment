@@ -149,14 +149,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configurations\ClassConfiguration.cs" />
     <Compile Include="Configurations\ClientConfiguration.cs" />
+    <Compile Include="Configurations\EquipmentConfiguration.cs" />
+    <Compile Include="Configurations\GymConfiguration.cs" />
     <Compile Include="Configurations\MembershipConfiguration.cs" />
     <Compile Include="Configurations\SpecializationConfiguration.cs" />
     <Compile Include="Configurations\TrainerConfiguration.cs" />
     <Compile Include="DbContexts\GymDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\ClassRepository.cs" />
     <Compile Include="Repositories\ClientRepository.cs" />
+    <Compile Include="Repositories\EquipmentRepository.cs" />
+    <Compile Include="Repositories\GymRepository.cs" />
+    <Compile Include="Repositories\IClassRepository.cs" />
     <Compile Include="Repositories\IClientRepository.cs" />
+    <Compile Include="Repositories\IEquipmentRepository.cs" />
+    <Compile Include="Repositories\IGymRepository.cs" />
     <Compile Include="Repositories\IMembershipRepository.cs" />
     <Compile Include="Repositories\ISpeciaizationRepository.cs" />
     <Compile Include="Repositories\ITrainerRepository.cs" />
