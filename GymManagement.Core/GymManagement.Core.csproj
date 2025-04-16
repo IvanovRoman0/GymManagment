@@ -170,6 +170,7 @@
     <Compile Include="DTOs\EquipmentDto.cs" />
     <Compile Include="DTOs\GymDto.cs" />
     <Compile Include="DTOs\MembershipDto.cs" />
+    <Compile Include="DTOs\PaymentDto.cs" />
     <Compile Include="DTOs\SpecializationDto.cs" />
     <Compile Include="DTOs\TrainerDto.cs" />
     <Compile Include="Entities\BaseEntity.cs" />
@@ -179,6 +180,7 @@
     <Compile Include="Entities\Equipment.cs" />
     <Compile Include="Entities\Gym.cs" />
     <Compile Include="Entities\Membership.cs" />
+    <Compile Include="Entities\Payment.cs" />
     <Compile Include="Entities\Specialization.cs" />
     <Compile Include="Entities\Trainer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

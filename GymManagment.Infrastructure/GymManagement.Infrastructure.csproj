@@ -154,6 +154,7 @@
     <Compile Include="Configurations\EquipmentConfiguration.cs" />
     <Compile Include="Configurations\GymConfiguration.cs" />
     <Compile Include="Configurations\MembershipConfiguration.cs" />
+    <Compile Include="Configurations\PaymentConfiguration.cs" />
     <Compile Include="Configurations\SpecializationConfiguration.cs" />
     <Compile Include="Configurations\TrainerConfiguration.cs" />
     <Compile Include="DbContexts\GymDbContext.cs" />
@@ -167,9 +168,11 @@
     <Compile Include="Repositories\IEquipmentRepository.cs" />
     <Compile Include="Repositories\IGymRepository.cs" />
     <Compile Include="Repositories\IMembershipRepository.cs" />
+    <Compile Include="Repositories\IPaymentRepository.cs" />
     <Compile Include="Repositories\ISpeciaizationRepository.cs" />
     <Compile Include="Repositories\ITrainerRepository.cs" />
     <Compile Include="Repositories\MembershipRepository.cs" />
+    <Compile Include="Repositories\PaymentRepository.cs" />
     <Compile Include="Repositories\SpecializationRepository.cs" />
     <Compile Include="Repositories\TrainerRepository.cs" />
   </ItemGroup>

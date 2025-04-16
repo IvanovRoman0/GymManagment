@@ -27,7 +27,8 @@ builder.Services.AddAutoMapper(
     typeof(SpecializationService),
     typeof(GymService),
     typeof(EquipmentService),
-     typeof(ClassService));
+    typeof(ClassService),
+    typeof(PaymentService));
 
 builder.Services.AddScoped<IClientRepository, ClientRepository>();
 builder.Services.AddScoped<IClientService, ClientService>();

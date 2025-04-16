@@ -45,5 +45,11 @@ namespace GymManagement.Infrastructure.Repositories
         {
             return await _context.Clients.AnyAsync(x => x.Email == email, cancellationToken);
         }
+        public async Task<bool> ExistsAsync(int id, CancellationToken cancellationToken)
+        {
+            return await _context.Clients
+                .AsNoTracking()
+                .AnyAsync(c => c.Id == id, cancellationToken);
+        }
     }
 }
