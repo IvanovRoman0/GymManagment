@@ -23,9 +23,9 @@ namespace GymManagement.API.Controllers
             return result.ToActionResult();
         }
         [HttpGet("выбор id тренера")]
-        public async Task<IActionResult> GetById(int id, CancellationToken cancellationToken)
+        public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
         {
-            var result = await _trainerService.GetTrainerByIdAsync(id, cancellationToken);
+            var result = await _trainerService.GetAllTrainerAsync(cancellationToken);
             return result.ToActionResult();
         }
         [HttpPut("изменения тренера")]

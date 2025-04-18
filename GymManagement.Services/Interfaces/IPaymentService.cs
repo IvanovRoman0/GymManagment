@@ -14,8 +14,6 @@ namespace GymManagement.Services.Interfaces
         Task<ServiceResult<PaymentDto>> CreatePaymentAsync(PaymentDto dto, CancellationToken cancellationToken);
         Task<ServiceResult<PaymentDto>> GetPaymentByIdAsync(int id, CancellationToken cancellationToken);
         Task<ServiceResult<IEnumerable<PaymentDto>>> GetAllPaymentsAsync(CancellationToken cancellationToken);
-        Task<ServiceResult<IEnumerable<PaymentDto>>> GetPaymentsByClientIdAsync(int clientId, CancellationToken cancellationToken);
-        Task<ServiceResult<IEnumerable<PaymentDto>>> GetPaymentsByDateRangeAsync(DateTime startDate, DateTime endDate, CancellationToken cancellationToken);
         Task<ServiceResult<PaymentDto>> UpdatePaymentAsync(int id, PaymentDto dto, CancellationToken cancellationToken);
         Task<ServiceResult<bool>> DeletePaymentAsync(int id, CancellationToken cancellationToken);
     }

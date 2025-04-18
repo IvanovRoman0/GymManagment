@@ -37,11 +37,6 @@ namespace GymManagment.Infrastructure.Configurations
                 .HasColumnName("payment_type")
                 .HasMaxLength(20)
                 .HasConversion<string>();
-
-            builder.HasOne(p => p.Client)
-                .WithMany()
-                .HasForeignKey(p => p.ClientId)
-                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

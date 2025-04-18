@@ -24,9 +24,9 @@ namespace GymManagement.API.Controllers
         }
 
         [HttpGet("выбор id клиента")]
-        public async Task<IActionResult> GetById(int id, CancellationToken cancellationToken)
+        public async Task<IActionResult> GetClientAll( CancellationToken cancellationToken)
         {
-            var result = await _clientService.GetClientByIdAsync(id, cancellationToken);
+            var result = await _clientService.GetAllClientAsync(cancellationToken);
             return result.ToActionResult();
         }
         [HttpPut("изменения клиента")]

@@ -10,9 +10,7 @@ namespace GymManagement.Core.DTOs
     {
         public int Id { get; set; }
         public int? TrainerId { get; set; }
-        public string TrainerName { get; set; }
         public int GymId { get; set; }
-        public string GymName { get; set; }
         public string ClassName { get; set; }
         public string ClassType { get; set; } 
         public DateTime DateTime { get; set; } = DateTime.Now;

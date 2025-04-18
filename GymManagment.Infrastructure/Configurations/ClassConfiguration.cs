@@ -42,16 +42,6 @@ namespace GymManagment.Infrastructure.Configurations
                 .HasColumnName("date_time")
                 .HasColumnType("timestamp")
                 .HasDefaultValueSql("CURRENT_TIMESTAMP");
-
-            builder.HasOne(c => c.Trainer)
-                .WithMany()
-                .HasForeignKey(c => c.TrainerId)
-                .OnDelete(DeleteBehavior.SetNull);
-
-            builder.HasOne(c => c.Gym)
-                .WithMany()
-                .HasForeignKey(c => c.GymId)
-                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

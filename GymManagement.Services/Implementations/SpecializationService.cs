@@ -15,9 +15,9 @@ namespace GymManagement.Services.Implementations
 {
     public class SpecializationService : ISpecializationService
     {
-        private readonly ISpeciaizationRepository _specializationRepository;
+        private readonly ISpecializationRepository _specializationRepository;
         private readonly IMapper _mapper;
-        public SpecializationService(ISpeciaizationRepository specializationRepository, IMapper mapper)
+        public SpecializationService(ISpecializationRepository specializationRepository, IMapper mapper)
         {
             _specializationRepository = specializationRepository;
             _mapper = mapper;

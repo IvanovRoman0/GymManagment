@@ -34,10 +34,6 @@ namespace GymManagment.Infrastructure.Configurations
                 .HasColumnName("date_purchase")
                 .HasColumnType("date");
 
-            builder.HasOne(e => e.Gym)
-                .WithMany()
-                .HasForeignKey(e => e.GymId)
-                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

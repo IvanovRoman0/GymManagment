@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GymManagment.Infrastructure.Repositories
 {
-    public class SpecializationRepository : ISpeciaizationRepository
+    public class SpecializationRepository : ISpecializationRepository
     {
         private readonly GymDbContext _context;
         public SpecializationRepository(GymDbContext context)

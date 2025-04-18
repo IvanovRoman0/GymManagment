@@ -22,12 +22,7 @@ namespace GymManagement.API.Controllers
             var result = await _specializationService.CreateSpecializationAsync(specializationDto, cancellationToken);
             return result.ToActionResult();
         }
-        [HttpGet("выбор id специализации")]
-        public async Task<IActionResult> GetById(int id, CancellationToken cancellationToken)
-        {
-            var result = await _specializationService.GetSpecializationByIdAsync(id, cancellationToken);
-            return result.ToActionResult();
-        }
+
         [HttpGet]
         public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
         {

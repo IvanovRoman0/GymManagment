@@ -169,7 +169,7 @@
     <Compile Include="Repositories\IGymRepository.cs" />
     <Compile Include="Repositories\IMembershipRepository.cs" />
     <Compile Include="Repositories\IPaymentRepository.cs" />
-    <Compile Include="Repositories\ISpeciaizationRepository.cs" />
+    <Compile Include="Repositories\ISpecializationRepository.cs" />
     <Compile Include="Repositories\ITrainerRepository.cs" />
     <Compile Include="Repositories\MembershipRepository.cs" />
     <Compile Include="Repositories\PaymentRepository.cs" />

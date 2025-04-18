@@ -23,12 +23,7 @@ namespace GymManagement.Services.Mapping
                 .ForMember(dest => dest.DateTime,
                     opt => opt.MapFrom(src => src.DateTime == default ? DateTime.Now : src.DateTime));
 
-            CreateMap<Class, ClassDto>()
-                .ForMember(dest => dest.TrainerName,
-                    opt => opt.MapFrom(src => src.Trainer != null ?
-                        $"{src.Trainer.FirstName} {src.Trainer.LastName}" : null))
-                .ForMember(dest => dest.GymName,
-                    opt => opt.MapFrom(src => src.Gym != null ? src.Gym.GymName : null));
+            CreateMap<Class, ClassDto>();
         }
     }
 }

@@ -8,7 +8,7 @@ using GymManagement.Core.Entities;
 
 namespace GymManagment.Infrastructure.Repositories
 {
-    public interface ISpeciaizationRepository
+    public interface ISpecializationRepository
     {
         Task<Specialization> GetByIdAsync(int id, CancellationToken cancellationToken = default);
         Task<IEnumerable<Specialization>> GetAllAsync(CancellationToken cancellationToken = default);

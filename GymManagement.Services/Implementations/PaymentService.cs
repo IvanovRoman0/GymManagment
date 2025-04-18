@@ -74,31 +74,6 @@ namespace GymManagement.Services.Implementations
             }
         }
 
-        public async Task<ServiceResult<IEnumerable<PaymentDto>>> GetPaymentsByClientIdAsync(int clientId, CancellationToken cancellationToken)
-        {
-            try
-            {
-                var payments = await _paymentRepository.GetByClientIdAsync(clientId, cancellationToken);
-                return ServiceResult<IEnumerable<PaymentDto>>.Success(_mapper.Map<IEnumerable<PaymentDto>>(payments));
-            }
-            catch (Exception ex)
-            {
-                return ServiceResult<IEnumerable<PaymentDto>>.Failure(ex.Message);
-            }
-        }
-
-        public async Task<ServiceResult<IEnumerable<PaymentDto>>> GetPaymentsByDateRangeAsync(DateTime startDate, DateTime endDate, CancellationToken cancellationToken)
-        {
-            try
-            {
-                var payments = await _paymentRepository.GetByDateRangeAsync(startDate, endDate, cancellationToken);
-                return ServiceResult<IEnumerable<PaymentDto>>.Success(_mapper.Map<IEnumerable<PaymentDto>>(payments));
-            }
-            catch (Exception ex)
-            {
-                return ServiceResult<IEnumerable<PaymentDto>>.Failure(ex.Message);
-            }
-        }
         public async Task<ServiceResult<PaymentDto>> UpdatePaymentAsync(int id, PaymentDto paymentDto, CancellationToken cancellationToken)
         {
             try

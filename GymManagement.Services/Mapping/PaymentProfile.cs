@@ -21,10 +21,7 @@ namespace GymManagement.Services.Mapping
                     paymentDto.PaymentType))
                 .ForMember(dest => dest.Id, opt => opt.Ignore());
 
-            CreateMap<Payment, PaymentDto>()
-                .ForMember(dest => dest.ClientFullName,
-                    opt => opt.MapFrom(src => src.Client != null ?
-                        $"{src.Client.FirstName} {src.Client.LastName}" : null));
+            CreateMap<Payment, PaymentDto>();
         }
     }
 }

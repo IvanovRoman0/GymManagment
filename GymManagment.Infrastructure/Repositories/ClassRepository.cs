@@ -37,24 +37,6 @@ namespace GymManagment.Infrastructure.Repositories
                 .ToListAsync(cancellationToken);
         }
 
-        public async Task<IEnumerable<Class>> GetByGymIdAsync(int gymId, CancellationToken cancellationToken)
-        {
-            return await _context.Classes
-                .Include(c => c.Trainer)
-                .Where(c => c.GymId == gymId)
-                .AsNoTracking()
-                .ToListAsync(cancellationToken);
-        }
-
-        public async Task<IEnumerable<Class>> GetByTrainerIdAsync(int trainerId, CancellationToken cancellationToken)
-        {
-            return await _context.Classes
-                .Include(c => c.Gym)
-                .Where(c => c.TrainerId == trainerId)
-                .AsNoTracking()
-                .ToListAsync(cancellationToken);
-        }
-
         public async Task AddAsync(Class classEntity, CancellationToken cancellationToken)
         {
             await _context.Classes.AddAsync(classEntity, cancellationToken);

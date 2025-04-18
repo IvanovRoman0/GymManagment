@@ -7,6 +7,7 @@ using GymManagement.Core.Entities;
 using GymManagement.Infrastructure.Repositories;
 using AutoMapper;
 using GymManagement.Core.Results;
+using System.Collections.Generic;
 
 namespace GymManagement.Services.Implementations
 {
@@ -33,6 +34,19 @@ namespace GymManagement.Services.Implementations
             catch (Exception ex)
             {
                 return ServiceResult<MembershipDto>.Failure(ex.Message);
+            }
+        }
+        public async Task<ServiceResult<IEnumerable<MembershipDto>>> GetAllMembershipAsync(CancellationToken cancellationToken)
+        {
+            try
+            {
+                var membership = await _MembershipRepository.GetAllAsync(cancellationToken);
+                var membershipDtos = _mapper.Map<IEnumerable<MembershipDto>>(membership);
+                return ServiceResult<IEnumerable<MembershipDto>>.Success(membershipDtos);
+            }
+            catch (Exception ex)
+            {
+                return ServiceResult<IEnumerable<MembershipDto>>.Failure(ex.Message);
             }
         }
         public async Task<ServiceResult<MembershipDto>> GetMembershipByIdAsync(int id, CancellationToken cancellationToken)

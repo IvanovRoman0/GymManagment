@@ -59,45 +59,11 @@ namespace GymManagement.Services.Implementations
             }
         }
 
-        public async Task<ServiceResult<ClassDto>> GetClassByIdAsync(int id, CancellationToken cancellationToken)
-        {
-            var classEntity = await _classRepository.GetByIdAsync(id, cancellationToken);
-            return classEntity == null
-                ? ServiceResult<ClassDto>.Failure("Занятие не найдено", 404)
-                : ServiceResult<ClassDto>.Success(_mapper.Map<ClassDto>(classEntity));
-        }
-
         public async Task<ServiceResult<IEnumerable<ClassDto>>> GetAllClassesAsync(CancellationToken cancellationToken)
         {
             try
             {
                 var classes = await _classRepository.GetAllAsync(cancellationToken);
-                return ServiceResult<IEnumerable<ClassDto>>.Success(_mapper.Map<IEnumerable<ClassDto>>(classes));
-            }
-            catch (Exception ex)
-            {
-                return ServiceResult<IEnumerable<ClassDto>>.Failure(ex.Message);
-            }
-        }
-
-        public async Task<ServiceResult<IEnumerable<ClassDto>>> GetClassesByGymIdAsync(int gymId, CancellationToken cancellationToken)
-        {
-            try
-            {
-                var classes = await _classRepository.GetByGymIdAsync(gymId, cancellationToken);
-                return ServiceResult<IEnumerable<ClassDto>>.Success(_mapper.Map<IEnumerable<ClassDto>>(classes));
-            }
-            catch (Exception ex)
-            {
-                return ServiceResult<IEnumerable<ClassDto>>.Failure(ex.Message);
-            }
-        }
-
-        public async Task<ServiceResult<IEnumerable<ClassDto>>> GetClassesByTrainerIdAsync(int trainerId, CancellationToken cancellationToken)
-        {
-            try
-            {
-                var classes = await _classRepository.GetByTrainerIdAsync(trainerId, cancellationToken);
                 return ServiceResult<IEnumerable<ClassDto>>.Success(_mapper.Map<IEnumerable<ClassDto>>(classes));
             }
             catch (Exception ex)

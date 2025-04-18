@@ -71,22 +71,6 @@ namespace GymManagement.Services.Implementations
             }
         }
 
-        public async Task<ServiceResult<IEnumerable<EquipmentDto>>> GetEquipmentByGymIdAsync(int gymId, CancellationToken cancellationToken)
-        {
-            try
-            {
-                if (!await _gymRepository.ExistsAsync(gymId, cancellationToken))
-                    return ServiceResult<IEnumerable<EquipmentDto>>.Failure("Зал не найден", 404);
-
-                var equipment = await _equipmentRepository.GetByGymIdAsync(gymId, cancellationToken);
-                return ServiceResult<IEnumerable<EquipmentDto>>.Success(_mapper.Map<IEnumerable<EquipmentDto>>(equipment));
-            }
-            catch (Exception ex)
-            {
-                return ServiceResult<IEnumerable<EquipmentDto>>.Failure(ex.Message);
-            }
-        }
-
         public async Task<ServiceResult<EquipmentDto>> UpdateEquipmentAsync(int id, EquipmentDto equipmentDto, CancellationToken cancellationToken)
         {
             try

@@ -11,7 +11,6 @@ namespace GymManagement.Core.DTOs
         public int Id { get; set; }
         public string EquipmentName { get; set; }
         public int GymId { get; set; }
-        public string GymName { get; set; }
         public DateTime? DatePurchase { get; set; }
     }
 }
