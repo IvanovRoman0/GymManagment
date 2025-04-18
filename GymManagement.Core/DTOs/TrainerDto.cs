@@ -12,6 +12,5 @@ namespace GymManagement.Core.DTOs
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
         public int? SpecializationId { get; set; }
-        public string SpecializationName { get; set; }
     }
 }

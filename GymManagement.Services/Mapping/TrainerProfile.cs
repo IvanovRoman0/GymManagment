@@ -21,9 +21,7 @@ namespace GymManagement.Services.Mapping
                     trainerDto.Email,
                     trainerDto.SpecializationId))
                 .ForMember(dest => dest.Id, opt => opt.Ignore());
-            CreateMap<Trainer, TrainerDto>()
-                .ForMember(dest => dest.SpecializationName,
-                opt => opt.MapFrom(src => src.Specialization != null ? src.Specialization.SpecializationName : null));
+            CreateMap<Trainer, TrainerDto>();
         }
     }
 }

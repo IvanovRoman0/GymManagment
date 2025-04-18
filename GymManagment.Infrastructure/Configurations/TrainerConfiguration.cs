@@ -35,10 +35,6 @@ namespace GymManagment.Infrastructure.Configurations
             builder.Property(t => t.SpecializationId)
                 .HasColumnName("specialization_id")
                 .HasColumnType("integer");
-            builder.HasOne(t => t.Specialization)
-                .WithMany()
-                .HasForeignKey(t => t.SpecializationId)
-                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
