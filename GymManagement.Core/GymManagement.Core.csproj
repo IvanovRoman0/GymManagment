@@ -167,10 +167,13 @@
   <ItemGroup>
     <Compile Include="DTOs\ClassDto.cs" />
     <Compile Include="DTOs\ClientDto.cs" />
+    <Compile Include="DTOs\ClientMembershipDto.cs" />
     <Compile Include="DTOs\EquipmentDto.cs" />
     <Compile Include="DTOs\GymDto.cs" />
     <Compile Include="DTOs\MembershipDto.cs" />
+    <Compile Include="DTOs\PaymentClientMembershipDto.cs" />
     <Compile Include="DTOs\PaymentDto.cs" />
+    <Compile Include="DTOs\RegistrationClassDto.cs" />
     <Compile Include="DTOs\ReviewDto.cs" />
     <Compile Include="DTOs\SpecializationDto.cs" />
     <Compile Include="DTOs\TrainerDto.cs" />
@@ -178,11 +181,14 @@
     <Compile Include="Entities\BaseEntity.cs" />
     <Compile Include="Entities\Class.cs" />
     <Compile Include="Entities\Client.cs" />
+    <Compile Include="Entities\ClientMembership.cs" />
     <Compile Include="Entities\Enum.cs" />
     <Compile Include="Entities\Equipment.cs" />
     <Compile Include="Entities\Gym.cs" />
     <Compile Include="Entities\Membership.cs" />
     <Compile Include="Entities\Payment.cs" />
+    <Compile Include="Entities\PaymentClientMembership.cs" />
+    <Compile Include="Entities\RegistrationClass.cs" />
     <Compile Include="Entities\Reviews.cs" />
     <Compile Include="Entities\Specialization.cs" />
     <Compile Include="Entities\Trainer.cs" />

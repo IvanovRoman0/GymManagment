@@ -18,6 +18,9 @@ namespace GymManagement.Infrastructure.DbContexts
         public DbSet<Payment> Payments { get; set; }
         public DbSet<Reviews> Reviews { get; set; }
         public DbSet<Workout> Workouts { get; set; }
+        public DbSet<ClientMembership> ClientMemberships { get; set; }
+        public DbSet<RegistrationClass> RegistrationClasses { get; set; }
+        public DbSet<PaymentClientMembership> PaymentClientMemberships { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

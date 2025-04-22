@@ -51,5 +51,10 @@ namespace GymManagement.Infrastructure.Repositories
         {
             return await _context.Memberships.AnyAsync(m => m.MembershipType ==  membershiptype, cancellationToken);
         }
+        public async Task<bool> ExistsAsync(int id, CancellationToken cancellationToken = default)
+        {
+            return await _context.Memberships
+                .AnyAsync(m => m.Id == id, cancellationToken);
+        }
     }
 }

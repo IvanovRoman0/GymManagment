@@ -13,6 +13,7 @@ namespace GymManagement.Infrastructure.Repositories
         Task UpdateAsync(Membership membership, CancellationToken cancellationToken = default);
         Task DeleteAsync(int id, CancellationToken cancellationToken = default);
         Task<bool> ExistsByTypeAsync(string membershiptype, CancellationToken cancellationToken = default);
+        Task<bool> ExistsAsync(int id, CancellationToken cancellationToken = default);
 
     }
 }
