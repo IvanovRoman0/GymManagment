@@ -23,7 +23,7 @@ namespace GymManagement.API.Controllers
             return result.ToActionResult();
         }
 
-        [HttpGet("выбор id абонимента")]
+        [HttpGet("все абонименты")]
         public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
         {
             var result = await _membershipService.GetAllMembershipAsync(cancellationToken);

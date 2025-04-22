@@ -79,24 +79,30 @@
     <Compile Include="Implementations\GymService.cs" />
     <Compile Include="Implementations\MembershipService.cs" />
     <Compile Include="Implementations\PaymentService.cs" />
+    <Compile Include="Implementations\ReviewService.cs" />
     <Compile Include="Implementations\SpecializationService.cs" />
     <Compile Include="Implementations\TrainerService.cs" />
+    <Compile Include="Implementations\WorkoutService.cs" />
     <Compile Include="Interfaces\IClassService.cs" />
     <Compile Include="Interfaces\IClientService.cs" />
     <Compile Include="Interfaces\IEquipmentService.cs" />
     <Compile Include="Interfaces\IGymService.cs" />
     <Compile Include="Interfaces\IMembershipService.cs" />
     <Compile Include="Interfaces\IPaymentService.cs" />
+    <Compile Include="Interfaces\IReviewService.cs" />
     <Compile Include="Interfaces\ISpecializationService.cs" />
     <Compile Include="Interfaces\ITrainerService.cs" />
+    <Compile Include="Interfaces\IWorkoutService.cs" />
     <Compile Include="Mapping\ClassProfile.cs" />
     <Compile Include="Mapping\ClientProfile.cs" />
     <Compile Include="Mapping\EquipmentProfile.cs" />
     <Compile Include="Mapping\GymProfile.cs" />
     <Compile Include="Mapping\MembershipProfile.cs" />
     <Compile Include="Mapping\PaymentProfile.cs" />
+    <Compile Include="Mapping\ReviewProfile.cs" />
     <Compile Include="Mapping\SpecializationProfile.cs" />
     <Compile Include="Mapping\TrainerProfile.cs" />
+    <Compile Include="Mapping\WorkoustProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

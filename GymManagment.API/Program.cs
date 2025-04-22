@@ -28,7 +28,9 @@ builder.Services.AddAutoMapper(
     typeof(GymService),
     typeof(EquipmentService),
     typeof(ClassService),
-    typeof(PaymentService));
+    typeof(PaymentService),
+    typeof(ReviewService),
+    typeof(WorkoutService));
 
 builder.Services.AddScoped<IClientRepository, ClientRepository>();
 builder.Services.AddScoped<IClientService, ClientService>();
@@ -46,6 +48,10 @@ builder.Services.AddScoped<IEquipmentRepository, EquipmentRepository>();
 builder.Services.AddScoped<IEquipmentService, EquipmentService>();
 builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
 builder.Services.AddScoped<IPaymentService, PaymentService>();
+builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
+builder.Services.AddScoped<IReviewService, ReviewService>();
+builder.Services.AddScoped<IWorkoutRepository, WorkoutRepository>();
+builder.Services.AddScoped<IWorkoutService, WorkoutService>();
 
 
 builder.Services.AddEndpointsApiExplorer();

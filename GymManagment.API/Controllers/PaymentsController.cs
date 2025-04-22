@@ -16,28 +16,28 @@ namespace GymManagement.API.Controllers
             _paymentService = paymentService;
         }
 
-        [HttpPost]
+        [HttpPost("Создание платежа")]
         public async Task<IActionResult> Create([FromBody] PaymentDto paymentDto, CancellationToken cancellationToken)
         {
             var result = await _paymentService.CreatePaymentAsync(paymentDto, cancellationToken);
             return result.ToActionResult();
         }
 
-        [HttpGet]
+        [HttpGet("Все платежи")]
         public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
         {
             var result = await _paymentService.GetAllPaymentsAsync(cancellationToken);
             return result.ToActionResult();
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("Изменение платежей")]
         public async Task<IActionResult> Update(int id, [FromBody] PaymentDto paymentDto, CancellationToken cancellationToken)
         {
             var result = await _paymentService.UpdatePaymentAsync(id, paymentDto, cancellationToken);
             return result.ToActionResult();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("Удаление платежей")]
         public async Task<IActionResult> Delete(int id, CancellationToken cancellationToken)
         {
             var result = await _paymentService.DeletePaymentAsync(id, cancellationToken);

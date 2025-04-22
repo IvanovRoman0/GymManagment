@@ -23,7 +23,7 @@ namespace GymManagement.API.Controllers
             return result.ToActionResult();
         }
 
-        [HttpGet]
+        [HttpGet("Все специальзации")]
         public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
         {
             var result = await _specializationService.GetAllSpecializationAsync(cancellationToken);
