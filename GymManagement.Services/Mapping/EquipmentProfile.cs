@@ -15,7 +15,7 @@ namespace GymManagement.Services.Mapping
         {
             CreateMap<EquipmentDto, Equipment>()
                 .ConstructUsing(equipmentDto => Equipment.Create(equipmentDto.EquipmentName, equipmentDto.GymId, equipmentDto.DatePurchase))
-                .ForMember(dest => dest.Id, opt => opt.Ignore());
+                .ForMember(dest => dest.id, opt => opt.Ignore());
 
             CreateMap<Equipment, EquipmentDto>();
            

@@ -14,14 +14,10 @@ namespace GymManagment.Infrastructure.Configurations
         public void Configure(EntityTypeBuilder<Reviews> builder)
         {
             builder.ToTable("reviews", "Gym");
-            builder.HasKey(r => r.Id);
 
-            builder.Property(r => r.Id)
-                .HasColumnName("id")
-                .HasColumnType("integer");
+            builder.Property(r => r.id);
             builder.Property(r => r.ClientId)
-                .HasColumnName("client_id")
-                .IsRequired();
+                .HasColumnName("client_id");
             builder.Property(r => r.TrainerId)
                 .HasColumnName("trainer_id");
             builder.Property(r => r.GymId)

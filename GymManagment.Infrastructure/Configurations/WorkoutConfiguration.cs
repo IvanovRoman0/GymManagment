@@ -14,11 +14,9 @@ namespace GymManagment.Infrastructure.Configurations
         public void Configure(EntityTypeBuilder<Workout> builder)
         {
             builder.ToTable("workouts", "Gym");
-            builder.HasKey(w => w.Id);
+            builder.HasKey(w => w.id);
 
-            builder.Property(w => w.Id)
-                .HasColumnName("id")
-                .HasColumnType("integer")
+            builder.Property(w => w.id)
                 .ValueGeneratedOnAdd();
 
             builder.Property(w => w.ClientId)

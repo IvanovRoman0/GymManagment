@@ -16,7 +16,7 @@ namespace GymManagment.Infrastructure.Repositories
         }
         public async Task<Trainer> GetByIdAsync(int id, CancellationToken cancellationToken)
         {
-            return await _context.Trainers.Include(t => t.Specialization).AsNoTracking().FirstOrDefaultAsync(c => c.Id == id, cancellationToken);
+            return await _context.Trainers.Include(t => t.Specialization).AsNoTracking().FirstOrDefaultAsync(c => c.id == id, cancellationToken);
         }
         public async Task<IEnumerable<Trainer>> GetAllAsync(CancellationToken cancellationToken)
         {
@@ -50,7 +50,7 @@ namespace GymManagment.Infrastructure.Repositories
         {
             return await _context.Trainers
                 .AsNoTracking()
-                .AnyAsync(t => t.Id == id, cancellationToken);
+                .AnyAsync(t => t.id == id, cancellationToken);
         }
     }
 }

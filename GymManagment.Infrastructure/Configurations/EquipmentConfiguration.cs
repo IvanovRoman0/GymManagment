@@ -14,21 +14,16 @@ namespace GymManagment.Infrastructure.Configurations
         public void Configure(EntityTypeBuilder<Equipment> builder)
         {
             builder.ToTable("equipment", "Gym");
-            builder.HasKey(e => e.Id);
 
-            builder.Property(e => e.Id)
-                .HasColumnName("id")
-                .HasColumnType("integer")
+            builder.Property(e => e.id)
                 .ValueGeneratedOnAdd();
 
             builder.Property(e => e.EquipmentName)
                 .HasColumnName("equipment_name")
-                .IsRequired()
                 .HasMaxLength(50);
 
             builder.Property(e => e.GymId)
-                .HasColumnName("gym_id")
-                .IsRequired();
+                .HasColumnName("gym_id");
 
             builder.Property(e => e.DatePurchase)
                 .HasColumnName("date_purchase")

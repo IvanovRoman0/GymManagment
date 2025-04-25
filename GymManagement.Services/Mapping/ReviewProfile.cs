@@ -14,7 +14,7 @@ namespace GymManagement.Services.Mapping
         public ReviewProfile()
         {
             CreateMap<ReviewDto, Reviews>()
-                .ForMember(dest => dest.Id, opt => opt.Ignore())
+                .ForMember(dest => dest.id, opt => opt.Ignore())
                 .ForMember(dest => dest.ReviewDate,
                     opt => opt.MapFrom(src => src.ReviewDate == default ? DateTime.Now : src.ReviewDate));
 

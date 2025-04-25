@@ -41,7 +41,7 @@ namespace GymManagement.Services.Implementations
 
                 var equipment = Equipment.Create(equipmentDto.EquipmentName, equipmentDto.GymId, equipmentDto.DatePurchase);
                 await _equipmentRepository.AddAsync(equipment, cancellationToken);
-                equipmentDto.Id = equipment.Id;
+                equipmentDto.Id = equipment.id;
                 return ServiceResult<EquipmentDto>.Success(equipmentDto);
             }
             catch (Exception ex)

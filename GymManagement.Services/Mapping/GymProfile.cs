@@ -15,7 +15,7 @@ namespace GymManagement.Services.Mapping
         {
             CreateMap<GymDto, Gym>()
                 .ConstructUsing(gymDto => Gym.Create(gymDto.GymName, gymDto.Location))
-                .ForMember(dest => dest.Id, opt => opt.Ignore());
+                .ForMember(dest => dest.id, opt => opt.Ignore());
 
             CreateMap<Gym, GymDto>();
         }

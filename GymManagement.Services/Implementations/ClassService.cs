@@ -50,7 +50,7 @@ namespace GymManagement.Services.Implementations
                 }
 
                 await _classRepository.AddAsync(classEntity, cancellationToken);
-                classDto.Id = classEntity.Id;
+                classDto.Id = classEntity.id;
                 return ServiceResult<ClassDto>.Success(classDto);
             }
             catch (Exception ex)

@@ -51,7 +51,7 @@ namespace GymManagement.Services.Implementations
 
                 var review = _mapper.Map<Reviews>(reviewDto);
                 await _reviewRepository.AddAsync(review, cancellationToken);
-                reviewDto.Id = review.Id;
+                reviewDto.Id = review.id;
                 return ServiceResult<ReviewDto>.Success(reviewDto);
             }
             catch (Exception ex)

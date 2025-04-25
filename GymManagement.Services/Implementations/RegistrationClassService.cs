@@ -52,7 +52,7 @@ namespace GymManagement.Services.Implementations
                     registrationclassDto.ClassId);
 
                 await _registrationClassRepository.AddAsync(registration, cancellationToken);
-                registrationclassDto.Id = registration.Id;
+                registrationclassDto.Id = registration.id;
                 return ServiceResult<RegistrationClassDto>.Success(registrationclassDto);
             }
             catch (Exception ex)

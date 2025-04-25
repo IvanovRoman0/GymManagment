@@ -33,7 +33,7 @@ namespace GymManagement.Services.Implementations
 
                 var gym = Gym.Create(gymDto.GymName, gymDto.Location);
                 await _gymRepository.AddAsync(gym, cancellationToken);
-                gymDto.Id = gym.Id;
+                gymDto.Id = gym.id;
                 return ServiceResult<GymDto>.Success(gymDto);
             }
             catch (Exception ex)

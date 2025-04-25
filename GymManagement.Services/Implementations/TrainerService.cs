@@ -36,7 +36,7 @@ namespace GymManagement.Services.Implementations
                     trainerDto.Email,
                     trainerDto.SpecializationId);
                 await _trainerRepository.AddAsync(trainer, cancellationToken);
-                trainerDto.Id = trainer.Id;
+                trainerDto.Id = trainer.id;
                 return ServiceResult<TrainerDto>.Success(trainerDto);
             }
             catch (Exception ex)

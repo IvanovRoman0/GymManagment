@@ -23,7 +23,7 @@ namespace GymManagment.Infrastructure.Repositories
                 .Include(rc => rc.Client)
                 .Include(rc => rc.Class)
                 .AsNoTracking()
-                .FirstOrDefaultAsync(rc => rc.Id == id, cancellationToken);
+                .FirstOrDefaultAsync(rc => rc.id == id, cancellationToken);
         }
 
         public async Task<IEnumerable<RegistrationClass>> GetAllAsync(CancellationToken cancellationToken)
@@ -60,7 +60,7 @@ namespace GymManagment.Infrastructure.Repositories
         public async Task<bool> ExistsAsync(int id, CancellationToken cancellationToken)
         {
             return await _context.RegistrationClasses
-                .AnyAsync(rc => rc.Id == id, cancellationToken);
+                .AnyAsync(rc => rc.id == id, cancellationToken);
         }
 
         public async Task<bool> ExistsRegistrationAsync(int clientId, int classId, CancellationToken cancellationToken)

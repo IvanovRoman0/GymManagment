@@ -10,7 +10,7 @@ namespace GymManagement.Services.Mapping
         {
             CreateMap<MembershipDto, Membership>()
                 .ConstructUsing(membershipDto => new Membership(membershipDto.MembershipType, membershipDto.Price))
-                .ForMember(dest => dest.Id, opt => opt.Ignore());
+                .ForMember(dest => dest.id, opt => opt.Ignore());
             CreateMap<Membership, MembershipDto>();
         }
     }

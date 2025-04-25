@@ -24,7 +24,7 @@ namespace GymManagment.Infrastructure.Repositories
             return await _context.Equipment
                 .Include(e => e.Gym)
                 .AsNoTracking()
-                .FirstOrDefaultAsync(e => e.Id == id, cancellationToken);
+                .FirstOrDefaultAsync(e => e.id == id, cancellationToken);
         }
 
         public async Task<IEnumerable<Equipment>> GetAllAsync(CancellationToken cancellationToken)
@@ -69,7 +69,7 @@ namespace GymManagment.Infrastructure.Repositories
         public async Task<bool> ExistsAsync(int id, CancellationToken cancellationToken)
         {
             return await _context.Equipment
-                .AnyAsync(e => e.Id == id, cancellationToken);
+                .AnyAsync(e => e.id == id, cancellationToken);
         }
 
         public async Task<bool> NameExistsInGymAsync(string name, int gymId, CancellationToken cancellationToken)

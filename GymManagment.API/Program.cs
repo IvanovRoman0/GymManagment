@@ -2,6 +2,7 @@ using GymManagement.Infrastructure.DbContexts;
 using GymManagement.Infrastructure.Repositories;
 using GymManagement.Services.Implementations;
 using GymManagement.Services.Interfaces;
+using GymManagement.Services.Mapping;
 using GymManagment.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
@@ -20,47 +21,19 @@ builder.Services.AddDbContext<GymDbContext>(options =>
     options.UseNpgsql(
         builder.Configuration.GetConnectionString("GymDbContext"),
         npgsqlOptions => npgsqlOptions.EnableRetryOnFailure()));
-builder.Services.AddAutoMapper(
-    typeof(ClientService),
-    typeof(MembershipService),
-    typeof(TrainerService),
-    typeof(SpecializationService),
-    typeof(GymService),
-    typeof(EquipmentService),
-    typeof(ClassService),
-    typeof(PaymentService),
-    typeof(ReviewService),
-    typeof(WorkoutService),
-    typeof(ClientMembershipService),
-    typeof(RegistrationClassService),
-    typeof(PaymentClientMembershipService));
 
-builder.Services.AddScoped<IClientRepository, ClientRepository>();
-builder.Services.AddScoped<IClientService, ClientService>();
-builder.Services.AddScoped<IMembershipRepository, MembershipRepository>();
-builder.Services.AddScoped<IMembershipService, MembershipService>();
-builder.Services.AddScoped<ITrainerRepository, TrainerRepository>();
-builder.Services.AddScoped<ITrainerService, TrainerService>();
-builder.Services.AddScoped<ISpecializationRepository, SpecializationRepository>();
-builder.Services.AddScoped<ISpecializationService, SpecializationService>();
-builder.Services.AddScoped<IGymRepository, GymRepository>();
-builder.Services.AddScoped<IGymService, GymService>();
-builder.Services.AddScoped<IClassRepository, ClassRepository>();
-builder.Services.AddScoped<IClassService, ClassService>();
-builder.Services.AddScoped<IEquipmentRepository, EquipmentRepository>();
-builder.Services.AddScoped<IEquipmentService, EquipmentService>();
-builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
-builder.Services.AddScoped<IPaymentService, PaymentService>();
-builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
-builder.Services.AddScoped<IReviewService, ReviewService>();
-builder.Services.AddScoped<IWorkoutRepository, WorkoutRepository>();
-builder.Services.AddScoped<IWorkoutService, WorkoutService>();
-builder.Services.AddScoped<IClientMembershipRepository, ClientMembershipRepository>();
-builder.Services.AddScoped<IClientMembershipService, ClientMembershipService>();
-builder.Services.AddScoped<IRegistrationClassRepository, RegistrationClassRepository>();
-builder.Services.AddScoped<IRegistrationClassService, RegistrationClassService>();
-builder.Services.AddScoped<IPaymentClientMembershipRepository, PaymentClientMembershipRepository>();
-builder.Services.AddScoped<IPaymentClientMembershipService, PaymentClientMembershipService>();
+builder.Services.AddAutoMapper(typeof(ClientProfile).Assembly);
+
+builder.Services.Scan(scan => scan
+    .FromAssemblies(typeof(ClientRepository).Assembly)
+    .AddClasses(classes => classes.Where(t => t.Name.EndsWith("Repository")))
+    .AsImplementedInterfaces()
+    .WithScopedLifetime());
+builder.Services.Scan(scan => scan
+    .FromAssemblies(typeof(ClientService).Assembly)
+    .AddClasses(classes => classes.Where(t => t.Name.EndsWith("Service")))
+    .AsImplementedInterfaces()
+    .WithScopedLifetime());
 
 
 builder.Services.AddEndpointsApiExplorer();

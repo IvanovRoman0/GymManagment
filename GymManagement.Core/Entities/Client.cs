@@ -16,7 +16,7 @@ namespace GymManagement.Core.Entities
         public string LastName { get; set; }
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
-        public DateTime? DateOfBirth { get; set; }
+        public DateTime? date_of_birth { get; set; }
         public Gender? Gender { get; set; }
         public DateTime RegistrationDate { get; set; }
 
@@ -30,7 +30,7 @@ namespace GymManagement.Core.Entities
         {
             var client = new Client(firstName, lastName, phoneNumber, email)
             {
-                DateOfBirth = dateOfBirth,
+                date_of_birth = dateOfBirth,
                 Gender = gender
             }; 
             return client;

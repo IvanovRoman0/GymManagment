@@ -30,7 +30,7 @@ namespace GymManagement.Services.Implementations
                     return ServiceResult<SpecializationDto>.Failure("Специализация с таким названием уже существут");
                 var specialization = Specialization.Create(specializationDto.SpecializationName);
                 await _specializationRepository.AddAsync(specialization, cancellationToken);
-                specializationDto.Id = specialization.Id;
+                specializationDto.Id = specialization.id;
                 return ServiceResult<SpecializationDto>.Success(specializationDto);
             }
             catch (Exception ex)

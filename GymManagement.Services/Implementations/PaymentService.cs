@@ -44,7 +44,7 @@ namespace GymManagement.Services.Implementations
                     paymentDto.PaymentType);
 
                 await _paymentRepository.AddAsync(payment, cancellationToken);
-                paymentDto.Id = payment.Id;
+                paymentDto.Id = payment.id;
                 return ServiceResult<PaymentDto>.Success(paymentDto);
             }
             catch (Exception ex)
@@ -92,7 +92,7 @@ namespace GymManagement.Services.Implementations
                     paymentDto.PaymentDate,
                     paymentDto.Amount,
                     paymentDto.PaymentType);
-                payment.Id = id;
+                payment.id = id;
 
                 await _paymentRepository.UpdateAsync(payment, cancellationToken);
                 return ServiceResult<PaymentDto>.Success(_mapper.Map<PaymentDto>(payment));

@@ -34,7 +34,7 @@ namespace GymManagement.Services.Implementations
                     clientDto.DateOfBirth,
                     clientDto.Gender);
                 await _clientRepository.AddAsync(client, cancellationToken);
-                clientDto.Id = client.Id;
+                clientDto.Id = client.id;
                 return ServiceResult<ClientDto>.Success(clientDto);
             }
             catch (Exception ex)
@@ -79,7 +79,7 @@ namespace GymManagement.Services.Implementations
                 existingClient.LastName = client.LastName;
                 existingClient.Email = client.Email;
                 existingClient.PhoneNumber = client.PhoneNumber;
-                existingClient.DateOfBirth = client.DateOfBirth;
+                existingClient.date_of_birth = client.DateOfBirth;
                 existingClient.Gender = client.Gender;
                 await _clientRepository.UpdateAsync(existingClient, cancellationToken);
                 return ServiceResult<ClientDto>.Success(_mapper.Map<ClientDto>(existingClient));

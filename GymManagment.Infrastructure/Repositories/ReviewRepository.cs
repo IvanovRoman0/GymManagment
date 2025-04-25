@@ -21,7 +21,7 @@ namespace GymManagment.Infrastructure.Repositories
                 .Include(r => r.Client)
                 .Include(r => r.Trainer)
                 .Include(r => r.Gym)
-                .FirstOrDefaultAsync(r => r.Id == id, cancellationToken);
+                .FirstOrDefaultAsync(r => r.id == id, cancellationToken);
 
         public async Task<IEnumerable<Reviews>> GetAllAsync(CancellationToken cancellationToken)
             => await _context.Reviews

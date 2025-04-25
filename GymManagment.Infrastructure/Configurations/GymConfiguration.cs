@@ -14,21 +14,15 @@ namespace GymManagment.Infrastructure.Configurations
         public void Configure(EntityTypeBuilder<Gym> builder)
         {
             builder.ToTable("gyms", "Gym");
-            builder.HasKey(g => g.Id);
-
-            builder.Property(g => g.Id)
-                .HasColumnName("id")
-                .HasColumnType("integer")
+            builder.Property(g => g.id)
                 .ValueGeneratedOnAdd();
 
             builder.Property(g => g.GymName)
                 .HasColumnName("gym_name")
-                .IsRequired()
                 .HasMaxLength(100);
 
             builder.Property(g => g.Location)
                 .HasColumnName("location")
-                .IsRequired()
                 .HasMaxLength(100);
         }
     }

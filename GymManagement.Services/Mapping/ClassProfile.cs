@@ -19,7 +19,7 @@ namespace GymManagement.Services.Mapping
                     classDto.ClassName,
                     classDto.ClassType,
                     classDto.TrainerId))
-                .ForMember(dest => dest.Id, opt => opt.Ignore())
+                .ForMember(dest => dest.id, opt => opt.Ignore())
                 .ForMember(dest => dest.DateTime,
                     opt => opt.MapFrom(src => src.DateTime == default ? DateTime.Now : src.DateTime));
 

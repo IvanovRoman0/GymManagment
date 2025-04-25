@@ -14,16 +14,12 @@ namespace GymManagment.Infrastructure.Configurations
         public void Configure(EntityTypeBuilder<Payment> builder)
         {
             builder.ToTable("payments", "Gym");
-            builder.HasKey(p => p.Id);
 
-            builder.Property(p => p.Id)
-                .HasColumnName("id")
-                .HasColumnType("integer")
+            builder.Property(p => p.id)
                 .ValueGeneratedOnAdd();
 
             builder.Property(p => p.ClientId)
-                .HasColumnName("client_id")
-                .IsRequired();
+                .HasColumnName("client_id");
 
             builder.Property(p => p.PaymentDate)
                 .HasColumnName("payment_date")

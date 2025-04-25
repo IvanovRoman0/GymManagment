@@ -14,14 +14,10 @@ namespace GymManagment.Infrastructure.Configurations
         public void Configure(EntityTypeBuilder<Specialization> builder)
         {
             builder.ToTable("specialization", "Gym");
-            builder.HasKey(s => s.Id);
-            builder.Property(s => s.Id)
-                .HasColumnName("id")
-                .HasColumnType("integer")
+            builder.Property(s => s.id)
                 .ValueGeneratedOnAdd();
             builder.Property(s => s.SpecializationName)
                 .HasColumnName("specialization_name")
-                .IsRequired()
                 .HasMaxLength(100);
         }
     }

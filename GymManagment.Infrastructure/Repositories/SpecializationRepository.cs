@@ -19,7 +19,7 @@ namespace GymManagment.Infrastructure.Repositories
         {
             return await _context.Specializations
                 .AsNoTracking()
-                .FirstOrDefaultAsync(s => s.Id == id, cancellationToken);
+                .FirstOrDefaultAsync(s => s.id == id, cancellationToken);
         }
         public async Task<IEnumerable<Specialization>> GetAllAsync(CancellationToken cancellationToken)
         {
@@ -49,7 +49,7 @@ namespace GymManagment.Infrastructure.Repositories
         public async Task<bool> ExistsAsync(int id, CancellationToken cancellationToken)
         {
             return await _context.Specializations
-                .AnyAsync(s => s.Id == id, cancellationToken);
+                .AnyAsync(s => s.id == id, cancellationToken);
         }
         public async Task<bool> NameExistsAsync(string specializationName, CancellationToken cancellationToken)
         {

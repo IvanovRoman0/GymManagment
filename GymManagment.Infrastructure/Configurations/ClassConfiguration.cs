@@ -14,20 +14,15 @@ namespace GymManagment.Infrastructure.Configurations
         public void Configure(EntityTypeBuilder<Class> builder)
         {
             builder.ToTable("class", "Gym");
-            builder.HasKey(c => c.Id);
 
-            builder.Property(c => c.Id)
-                .HasColumnName("id")
-                .HasColumnType("integer")
+            builder.Property(c => c.id)
                 .ValueGeneratedOnAdd();
 
             builder.Property(c => c.TrainerId)
-                .HasColumnName("trainer_id")
-                .HasColumnType("integer");
+                .HasColumnName("trainer_id");
 
             builder.Property(c => c.GymId)
-                .HasColumnName("gym_id")
-                .IsRequired();
+                .HasColumnName("gym_id");
 
             builder.Property(c => c.ClassName)
                 .HasColumnName("class_name")

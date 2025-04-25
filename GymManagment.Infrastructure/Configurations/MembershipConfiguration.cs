@@ -14,12 +14,9 @@ namespace GymManagment.Infrastructure.Configurations
         public void Configure(EntityTypeBuilder<Membership> builder)
         {
             builder.ToTable("memberships", "Gym");
-            builder.Property(m => m.Id)
-                .HasColumnName("id")
-                .HasColumnType("integer");
+            builder.Property(m => m.id);
             builder.Property(m => m.MembershipType)
-                .HasColumnName("membership_type")
-                .IsRequired();
+                .HasColumnName("membership_type");
             builder.Property(m => m.Price)
                 .HasColumnName("price")
                 .HasColumnType("decimal(10,2)");

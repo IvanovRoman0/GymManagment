@@ -16,7 +16,7 @@ namespace GymManagement.Infrastructure.Repositories
         }
         public async Task<Client> GetByIdAsync (int id, CancellationToken cancellationToken)
         {
-            return await _context.Clients.AsNoTracking().FirstOrDefaultAsync(c => c.Id == id, cancellationToken);
+            return await _context.Clients.AsNoTracking().FirstOrDefaultAsync(c => c.id == id, cancellationToken);
         }
         public async Task<IEnumerable<Client>> GetAllAsync(CancellationToken cancellationToken)
         {
@@ -49,7 +49,7 @@ namespace GymManagement.Infrastructure.Repositories
         {
             return await _context.Clients
                 .AsNoTracking()
-                .AnyAsync(c => c.Id == id, cancellationToken);
+                .AnyAsync(c => c.id == id, cancellationToken);
         }
     }
 }

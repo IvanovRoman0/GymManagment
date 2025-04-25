@@ -18,7 +18,7 @@ namespace GymManagement.Services.Mapping
                     registrationclassDto.ClientId,
                     registrationclassDto.RegistrationDate,
                     registrationclassDto.ClassId))
-                .ForMember(dest => dest.Id, opt => opt.Ignore());
+                .ForMember(dest => dest.id, opt => opt.Ignore());
 
             CreateMap<RegistrationClass, RegistrationClassDto>();
         }

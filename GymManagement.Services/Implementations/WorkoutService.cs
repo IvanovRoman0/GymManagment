@@ -49,7 +49,7 @@ namespace GymManagement.Services.Implementations
                     workoutDto.GymId);
 
                 await _workoutRepository.AddAsync(workout, cancellationToken);
-                workoutDto.Id = workout.Id;
+                workoutDto.Id = workout.id;
                 return ServiceResult<WorkoutDto>.Success(workoutDto);
             }
             catch (Exception ex)

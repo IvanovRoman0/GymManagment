@@ -28,7 +28,7 @@ namespace GymManagement.Services.Implementations
                     return ServiceResult<MembershipDto>.Failure("Тип абонемента уже существует");
                 var membership = Membership.Create(membershipDto.MembershipType, membershipDto.Price);
                 await _MembershipRepository.AddAsync(membership, cancellationToken);
-                membershipDto.Id = membership.Id;
+                membershipDto.Id = membership.id;
                 return ServiceResult<MembershipDto>.Success(membershipDto);
             }
             catch (Exception ex)

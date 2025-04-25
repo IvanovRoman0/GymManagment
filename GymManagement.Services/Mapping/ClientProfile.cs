@@ -15,7 +15,7 @@ namespace GymManagement.Services.Mapping
                     clientdto.Email,
                     clientdto.DateOfBirth,
                     clientdto.Gender))
-                .ForMember(dest => dest.Id, opt => opt.Ignore())
+                .ForMember(dest => dest.id, opt => opt.Ignore())
                 .ForMember(dest => dest.RegistrationDate, opt => opt.Ignore());
             CreateMap<Client, ClientDto>();
         }

@@ -14,27 +14,21 @@ namespace GymManagment.Infrastructure.Configurations
         public void Configure(EntityTypeBuilder<Trainer> builder)
         {
             builder.ToTable("trainers", "Gym");
-            builder.Property(t => t.Id)
-                .HasColumnName("id")
-                .HasColumnType("integer");
+            builder.Property(t => t.id);
             builder.Property(t => t.FirstName)
                 .HasColumnName("first_name")
-                .IsRequired()
                 .HasMaxLength(50);
             builder.Property(t => t.LastName)
                 .HasColumnName("last_name")
-                .IsRequired()
                 .HasMaxLength(50);
             builder.Property(t => t.PhoneNumber)
                 .HasColumnName("phone_number")
-                .IsRequired()
                 .HasMaxLength(11);
             builder.Property(t => t.Email)
                 .HasColumnName("email")
                 .HasMaxLength(100);
             builder.Property(t => t.SpecializationId)
-                .HasColumnName("specialization_id")
-                .HasColumnType("integer");
+                .HasColumnName("specialization_id");
         }
     }
 }

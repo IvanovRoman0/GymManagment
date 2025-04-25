@@ -20,7 +20,7 @@ namespace GymManagement.Services.Mapping
                     workoutDto.Duration,
                     workoutDto.DateTime,
                     workoutDto.GymId))
-                .ForMember(dest => dest.Id, opt => opt.Ignore());
+                .ForMember(dest => dest.id, opt => opt.Ignore());
 
             CreateMap<Workout, WorkoutDto>();
         }

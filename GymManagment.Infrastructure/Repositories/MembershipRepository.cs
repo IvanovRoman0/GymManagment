@@ -17,7 +17,7 @@ namespace GymManagement.Infrastructure.Repositories
 
         public async Task<Membership> GetByIdAsync(int id, CancellationToken cancellationToken = default)
         {
-            return await _context.Memberships.AsNoTracking().FirstOrDefaultAsync(m => m.Id == id, cancellationToken);
+            return await _context.Memberships.AsNoTracking().FirstOrDefaultAsync(m => m.id == id, cancellationToken);
         }
 
         public async Task<IEnumerable<Membership>> GetAllAsync(CancellationToken cancellationToken = default)
@@ -54,7 +54,7 @@ namespace GymManagement.Infrastructure.Repositories
         public async Task<bool> ExistsAsync(int id, CancellationToken cancellationToken = default)
         {
             return await _context.Memberships
-                .AnyAsync(m => m.Id == id, cancellationToken);
+                .AnyAsync(m => m.id == id, cancellationToken);
         }
     }
 }

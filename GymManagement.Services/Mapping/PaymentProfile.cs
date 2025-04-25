@@ -19,7 +19,7 @@ namespace GymManagement.Services.Mapping
                     paymentDto.PaymentDate,
                     paymentDto.Amount,
                     paymentDto.PaymentType))
-                .ForMember(dest => dest.Id, opt => opt.Ignore());
+                .ForMember(dest => dest.id, opt => opt.Ignore());
 
             CreateMap<Payment, PaymentDto>();
         }

@@ -24,7 +24,7 @@ namespace GymManagment.Infrastructure.Repositories
             return await _context.Payments
                 .Include(p => p.Client)
                 .AsNoTracking()
-                .FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
+                .FirstOrDefaultAsync(p => p.id == id, cancellationToken);
         }
 
         public async Task<IEnumerable<Payment>> GetAllAsync(CancellationToken cancellationToken)
@@ -77,7 +77,7 @@ namespace GymManagment.Infrastructure.Repositories
         public async Task<bool> ExistsAsync(int id, CancellationToken cancellationToken)
         {
             return await _context.Payments
-                .AnyAsync(p => p.Id == id, cancellationToken);
+                .AnyAsync(p => p.id == id, cancellationToken);
         }
         //public async Task<bool> HasLinkedMembershipsAsync(int paymentId, CancellationToken cancellationToken)
         //{

@@ -53,7 +53,7 @@ namespace GymManagement.Services.Implementations
                    clientmembershipDto.DateEnd);
 
                 await _clientMembershipRepository.AddAsync(clientMembership, cancellationToken);
-                clientmembershipDto.Id = clientMembership.Id;
+                clientmembershipDto.Id = clientMembership.id;
                 return ServiceResult<ClientMembershipDto>.Success(clientmembershipDto);
             }
             catch (Exception ex)
