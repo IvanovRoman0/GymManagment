@@ -33,8 +33,6 @@ namespace GymManagement.Services.Implementations
 
         public async Task<ServiceResult<WorkoutDto>> CreateWorkoutAsync(WorkoutDto workoutDto, CancellationToken cancellationToken)
         {
-            try
-            {
                 if (!await _clientRepository.ExistsAsync(workoutDto.ClientId, cancellationToken))
                     return ServiceResult<WorkoutDto>.Failure("Клиент не найден", 404);
 
@@ -51,11 +49,6 @@ namespace GymManagement.Services.Implementations
                 await _workoutRepository.AddAsync(workout, cancellationToken);
                 workoutDto.Id = workout.id;
                 return ServiceResult<WorkoutDto>.Success(workoutDto);
-            }
-            catch (Exception ex)
-            {
-                return ServiceResult<WorkoutDto>.Failure(ex.Message);
-            }
         }
 
         public async Task<ServiceResult<WorkoutDto>> GetWorkoutByIdAsync(int id, CancellationToken cancellationToken)
@@ -68,21 +61,12 @@ namespace GymManagement.Services.Implementations
 
         public async Task<ServiceResult<IEnumerable<WorkoutDto>>> GetAllWorkoutsAsync(CancellationToken cancellationToken)
         {
-            try
-            {
                 var workouts = await _workoutRepository.GetAllAsync(cancellationToken);
                 return ServiceResult<IEnumerable<WorkoutDto>>.Success(_mapper.Map<IEnumerable<WorkoutDto>>(workouts));
-            }
-            catch (Exception ex)
-            {
-                return ServiceResult<IEnumerable<WorkoutDto>>.Failure(ex.Message);
-            }
         }
 
         public async Task<ServiceResult<WorkoutDto>> UpdateWorkoutAsync(int id, WorkoutDto workoutDto, CancellationToken cancellationToken)
         {
-            try
-            {
                 if (id != workoutDto.Id)
                     return ServiceResult<WorkoutDto>.Failure("ID тренировки не совпадает");
 
@@ -104,28 +88,16 @@ namespace GymManagement.Services.Implementations
 
                 await _workoutRepository.UpdateAsync(existing, cancellationToken);
                 return ServiceResult<WorkoutDto>.Success(_mapper.Map<WorkoutDto>(existing));
-            }
-            catch (Exception ex)
-            {
-                return ServiceResult<WorkoutDto>.Failure(ex.Message);
-            }
         }
 
         public async Task<ServiceResult<bool>> DeleteWorkoutAsync(int id, CancellationToken cancellationToken)
         {
-            try
-            {
                 var workout = await _workoutRepository.GetByIdAsync(id, cancellationToken);
                 if (workout == null)
                     return ServiceResult<bool>.Failure("Тренировка не найдена", 404);
 
                 await _workoutRepository.DeleteAsync(id, cancellationToken);
                 return ServiceResult<bool>.Success(true);
-            }
-            catch (Exception ex)
-            {
-                return ServiceResult<bool>.Failure(ex.Message);
-            }
         }
     }
 }

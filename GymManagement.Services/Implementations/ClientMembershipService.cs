@@ -35,8 +35,6 @@ namespace GymManagement.Services.Implementations
 
         public async Task<ServiceResult<ClientMembershipDto>> CreateClientMembershipAsync(ClientMembershipDto clientmembershipDto, CancellationToken cancellationToken)
         {
-            try
-            {
                 if (!await _clientRepository.ExistsAsync(clientmembershipDto.ClientId, cancellationToken))
                     return ServiceResult<ClientMembershipDto>.Failure("Клиент не найден", 404);
 
@@ -55,11 +53,6 @@ namespace GymManagement.Services.Implementations
                 await _clientMembershipRepository.AddAsync(clientMembership, cancellationToken);
                 clientmembershipDto.Id = clientMembership.id;
                 return ServiceResult<ClientMembershipDto>.Success(clientmembershipDto);
-            }
-            catch (Exception ex)
-            {
-                return ServiceResult<ClientMembershipDto>.Failure(ex.Message);
-            }
         }
 
         public async Task<ServiceResult<ClientMembershipDto>> GetClientMembershipByIdAsync(int id, CancellationToken cancellationToken)
@@ -72,22 +65,13 @@ namespace GymManagement.Services.Implementations
 
         public async Task<ServiceResult<IEnumerable<ClientMembershipDto>>> GetAllClientMembershipsAsync(CancellationToken cancellationToken)
         {
-            try
-            {
                 var clientMemberships = await _clientMembershipRepository.GetAllAsync(cancellationToken);
                 return ServiceResult<IEnumerable<ClientMembershipDto>>.Success(
                     _mapper.Map<IEnumerable<ClientMembershipDto>>(clientMemberships));
-            }
-            catch (Exception ex)
-            {
-                return ServiceResult<IEnumerable<ClientMembershipDto>>.Failure(ex.Message);
-            }
         }
 
         public async Task<ServiceResult<ClientMembershipDto>> UpdateClientMembershipAsync(int id, ClientMembershipDto clientmembershipDto, CancellationToken cancellationToken)
         {
-            try
-            {
                 if (id != clientmembershipDto.Id)
                     return ServiceResult<ClientMembershipDto>.Failure("ID абонемента клиента не совпадает");
 
@@ -111,28 +95,16 @@ namespace GymManagement.Services.Implementations
 
                 await _clientMembershipRepository.UpdateAsync(existing, cancellationToken);
                 return ServiceResult<ClientMembershipDto>.Success(_mapper.Map<ClientMembershipDto>(existing));
-            }
-            catch (Exception ex)
-            {
-                return ServiceResult<ClientMembershipDto>.Failure(ex.Message);
-            }
         }
 
         public async Task<ServiceResult<bool>> DeleteClientMembershipAsync(int id, CancellationToken cancellationToken)
         {
-            try
-            {
                 var clientMembership = await _clientMembershipRepository.GetByIdAsync(id, cancellationToken);
                 if (clientMembership == null)
                     return ServiceResult<bool>.Failure("Абонемент клиента не найден", 404);
 
                 await _clientMembershipRepository.DeleteAsync(id, cancellationToken);
                 return ServiceResult<bool>.Success(true);
-            }
-            catch (Exception ex)
-            {
-                return ServiceResult<bool>.Failure(ex.Message);
-            }
         }
     }
 }

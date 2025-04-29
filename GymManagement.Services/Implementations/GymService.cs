@@ -26,8 +26,6 @@ namespace GymManagement.Services.Implementations
 
         public async Task<ServiceResult<GymDto>> CreateGymAsync(GymDto gymDto, CancellationToken cancellationToken)
         {
-            try
-            {
                 if (await _gymRepository.NameExistsAsync(gymDto.GymName, cancellationToken))
                     return ServiceResult<GymDto>.Failure("Зал с таким названием уже существует");
 
@@ -35,11 +33,6 @@ namespace GymManagement.Services.Implementations
                 await _gymRepository.AddAsync(gym, cancellationToken);
                 gymDto.Id = gym.id;
                 return ServiceResult<GymDto>.Success(gymDto);
-            }
-            catch (Exception ex)
-            {
-                return ServiceResult<GymDto>.Failure(ex.Message);
-            }
         }
 
         public async Task<ServiceResult<GymDto>> GetGymByIdAsync(int id, CancellationToken cancellationToken)
@@ -52,22 +45,13 @@ namespace GymManagement.Services.Implementations
 
         public async Task<ServiceResult<IEnumerable<GymDto>>> GetAllGymsAsync(CancellationToken cancellationToken)
         {
-            try
-            {
                 var gyms = await _gymRepository.GetAllAsync(cancellationToken);
                 var gymDtos = _mapper.Map<IEnumerable<GymDto>>(gyms);
                 return ServiceResult<IEnumerable<GymDto>>.Success(gymDtos);
-            }
-            catch (Exception ex)
-            {
-                return ServiceResult<IEnumerable<GymDto>>.Failure(ex.Message);
-            }
         }
 
         public async Task<ServiceResult<GymDto>> UpdateGymAsync(int id, GymDto gymDto, CancellationToken cancellationToken)
         {
-            try
-            {
                 if (id != gymDto.Id)
                     return ServiceResult<GymDto>.Failure("ID зала не совпадает");
 
@@ -85,28 +69,16 @@ namespace GymManagement.Services.Implementations
                 existing.Location = gymDto.Location;
                 await _gymRepository.UpdateAsync(existing, cancellationToken);
                 return ServiceResult<GymDto>.Success(_mapper.Map<GymDto>(existing));
-            }
-            catch (Exception ex)
-            {
-                return ServiceResult<GymDto>.Failure(ex.Message);
-            }
         }
 
         public async Task<ServiceResult<bool>> DeleteGymAsync(int id, CancellationToken cancellationToken)
         {
-            try
-            {
                 var gym = await _gymRepository.GetByIdAsync(id, cancellationToken);
                 if (gym == null)
                     return ServiceResult<bool>.Failure("Зал не найден", 404);
 
                 await _gymRepository.DeleteAsync(id, cancellationToken);
                 return ServiceResult<bool>.Success(true);
-            }
-            catch (Exception ex)
-            {
-                return ServiceResult<bool>.Failure(ex.Message);
-            }
         }
     }
 }

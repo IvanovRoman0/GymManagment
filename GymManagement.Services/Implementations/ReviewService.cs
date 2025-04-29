@@ -36,8 +36,6 @@ namespace GymManagement.Services.Implementations
 
         public async Task<ServiceResult<ReviewDto>> CreateReviewAsync(ReviewDto reviewDto, CancellationToken cancellationToken)
         {
-            try
-            {
                 if (!await _clientRepository.ExistsAsync(reviewDto.ClientId, cancellationToken))
                     return ServiceResult<ReviewDto>.Failure("Клиент не найден", 404);
 
@@ -53,46 +51,25 @@ namespace GymManagement.Services.Implementations
                 await _reviewRepository.AddAsync(review, cancellationToken);
                 reviewDto.Id = review.id;
                 return ServiceResult<ReviewDto>.Success(reviewDto);
-            }
-            catch (Exception ex)
-            {
-                return ServiceResult<ReviewDto>.Failure(ex.Message);
-            }
         }
 
         public async Task<ServiceResult<ReviewDto>> GetReviewByIdAsync(int id, CancellationToken cancellationToken)
         {
-            try
-            {
                 var review = await _reviewRepository.GetByIdAsync(id, cancellationToken);
                 if (review == null)
                     return ServiceResult<ReviewDto>.Failure("Отзыв не найден", 404);
 
                 return ServiceResult<ReviewDto>.Success(_mapper.Map<ReviewDto>(review));
-            }
-            catch (Exception ex)
-            {
-                return ServiceResult<ReviewDto>.Failure(ex.Message);
-            }
         }
 
         public async Task<ServiceResult<IEnumerable<ReviewDto>>> GetAllReviewsAsync(CancellationToken cancellationToken)
         {
-            try
-            {
                 var reviews = await _reviewRepository.GetAllAsync(cancellationToken);
                 return ServiceResult<IEnumerable<ReviewDto>>.Success(_mapper.Map<IEnumerable<ReviewDto>>(reviews));
-            }
-            catch (Exception ex)
-            {
-                return ServiceResult<IEnumerable<ReviewDto>>.Failure(ex.Message);
-            }
         }
 
         public async Task<ServiceResult<ReviewDto>> UpdateReviewAsync(int id, ReviewDto reviewDto, CancellationToken cancellationToken)
         {
-            try
-            {
                 if (id != reviewDto.Id)
                     return ServiceResult<ReviewDto>.Failure("ID отзыва не совпадает");
 
@@ -115,28 +92,16 @@ namespace GymManagement.Services.Implementations
                 _mapper.Map(reviewDto, existingReview);
                 await _reviewRepository.UpdateAsync(existingReview, cancellationToken);
                 return ServiceResult<ReviewDto>.Success(_mapper.Map<ReviewDto>(existingReview));
-            }
-            catch (Exception ex)
-            {
-                return ServiceResult<ReviewDto>.Failure(ex.Message);
-            }
         }
 
         public async Task<ServiceResult<bool>> DeleteReviewAsync(int id, CancellationToken cancellationToken)
         {
-            try
-            {
                 var review = await _reviewRepository.GetByIdAsync(id, cancellationToken);
                 if (review == null)
                     return ServiceResult<bool>.Failure("Отзыв не найден", 404);
 
                 await _reviewRepository.DeleteAsync(id, cancellationToken);
                 return ServiceResult<bool>.Success(true);
-            }
-            catch (Exception ex)
-            {
-                return ServiceResult<bool>.Failure(ex.Message);
-            }
         }
     }
 }

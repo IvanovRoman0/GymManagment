@@ -35,8 +35,6 @@ namespace GymManagement.Services.Implementations
 
         public async Task<ServiceResult<RegistrationClassDto>> CreateRegistrationAsync(RegistrationClassDto registrationclassDto, CancellationToken cancellationToken)
         {
-            try
-            {
                 if (!await _clientRepository.ExistsAsync(registrationclassDto.ClientId, cancellationToken))
                     return ServiceResult<RegistrationClassDto>.Failure("Клиент не найден", 404);
 
@@ -54,11 +52,6 @@ namespace GymManagement.Services.Implementations
                 await _registrationClassRepository.AddAsync(registration, cancellationToken);
                 registrationclassDto.Id = registration.id;
                 return ServiceResult<RegistrationClassDto>.Success(registrationclassDto);
-            }
-            catch (Exception ex)
-            {
-                return ServiceResult<RegistrationClassDto>.Failure(ex.Message);
-            }
         }
 
         public async Task<ServiceResult<RegistrationClassDto>> GetRegistrationByIdAsync(int id, CancellationToken cancellationToken)
@@ -71,22 +64,13 @@ namespace GymManagement.Services.Implementations
 
         public async Task<ServiceResult<IEnumerable<RegistrationClassDto>>> GetAllRegistrationsAsync(CancellationToken cancellationToken)
         {
-            try
-            {
                 var registrations = await _registrationClassRepository.GetAllAsync(cancellationToken);
                 return ServiceResult<IEnumerable<RegistrationClassDto>>.Success(
                     _mapper.Map<IEnumerable<RegistrationClassDto>>(registrations));
-            }
-            catch (Exception ex)
-            {
-                return ServiceResult<IEnumerable<RegistrationClassDto>>.Failure(ex.Message);
-            }
         }
 
         public async Task<ServiceResult<RegistrationClassDto>> UpdateRegistrationAsync(int id, RegistrationClassDto registrationclassDto, CancellationToken cancellationToken)
         {
-            try
-            {
                 if (id != registrationclassDto.Id)
                     return ServiceResult<RegistrationClassDto>.Failure("ID регистрации не совпадает");
 
@@ -106,28 +90,16 @@ namespace GymManagement.Services.Implementations
 
                 await _registrationClassRepository.UpdateAsync(existing, cancellationToken);
                 return ServiceResult<RegistrationClassDto>.Success(_mapper.Map<RegistrationClassDto>(existing));
-            }
-            catch (Exception ex)
-            {
-                return ServiceResult<RegistrationClassDto>.Failure(ex.Message);
-            }
         }
 
         public async Task<ServiceResult<bool>> DeleteRegistrationAsync(int id, CancellationToken cancellationToken)
         {
-            try
-            {
                 var registration = await _registrationClassRepository.GetByIdAsync(id, cancellationToken);
                 if (registration == null)
                     return ServiceResult<bool>.Failure("Регистрация не найдена", 404);
 
                 await _registrationClassRepository.DeleteAsync(id, cancellationToken);
                 return ServiceResult<bool>.Success(true);
-            }
-            catch (Exception ex)
-            {
-                return ServiceResult<bool>.Failure(ex.Message);
-            }
         }
     }
 }

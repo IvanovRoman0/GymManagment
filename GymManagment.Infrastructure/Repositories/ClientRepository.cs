@@ -34,12 +34,9 @@ namespace GymManagement.Infrastructure.Repositories
         }
         public async Task DeleteAsync (int id, CancellationToken cancellationToken)
         {
-            var client = await _context.Clients.FindAsync(id);
-            if (client != null)
-            {
-                _context.Clients.Remove(client);
-                await _context.SaveChangesAsync(cancellationToken);
-            }
+            await _context.Database.ExecuteSqlRawAsync(
+                "DELETE FROM \"Gym\".\"clients\" WHERE \"id\" = {0}",
+                id);
         }
         public async Task<bool> EmailExistsAsync(string email, CancellationToken cancellationToken)
         {

@@ -39,12 +39,9 @@ namespace GymManagment.Infrastructure.Repositories
         }
         public async Task DeleteAsync(int id, CancellationToken cancellationToken)
         {
-            var specialization = await _context.Specializations.FindAsync(id);
-            if (specialization != null)
-            {
-                _context.Specializations.Remove(specialization);
-                await _context.SaveChangesAsync(cancellationToken);
-            }
+            await _context.Database.ExecuteSqlRawAsync(
+                "DELETE FROM \"Gym\".\"specialization\" WHERE \"id\" = {0}",
+                id);
         }
         public async Task<bool> ExistsAsync(int id, CancellationToken cancellationToken)
         {

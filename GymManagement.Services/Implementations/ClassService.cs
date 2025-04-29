@@ -34,8 +34,6 @@ namespace GymManagement.Services.Implementations
 
         public async Task<ServiceResult<ClassDto>> CreateClassAsync(ClassDto classDto, CancellationToken cancellationToken)
         {
-            try
-            {
                 if (!await _gymRepository.ExistsAsync(classDto.GymId, cancellationToken))
                     return ServiceResult<ClassDto>.Failure("Зал не найден", 404);
 
@@ -52,30 +50,16 @@ namespace GymManagement.Services.Implementations
                 await _classRepository.AddAsync(classEntity, cancellationToken);
                 classDto.Id = classEntity.id;
                 return ServiceResult<ClassDto>.Success(classDto);
-            }
-            catch (Exception ex)
-            {
-                return ServiceResult<ClassDto>.Failure(ex.Message);
-            }
         }
 
         public async Task<ServiceResult<IEnumerable<ClassDto>>> GetAllClassesAsync(CancellationToken cancellationToken)
         {
-            try
-            {
                 var classes = await _classRepository.GetAllAsync(cancellationToken);
                 return ServiceResult<IEnumerable<ClassDto>>.Success(_mapper.Map<IEnumerable<ClassDto>>(classes));
-            }
-            catch (Exception ex)
-            {
-                return ServiceResult<IEnumerable<ClassDto>>.Failure(ex.Message);
-            }
         }
 
         public async Task<ServiceResult<ClassDto>> UpdateClassAsync(int id, ClassDto classDto, CancellationToken cancellationToken)
         {
-            try
-            {
                 if (id != classDto.Id)
                     return ServiceResult<ClassDto>.Failure("ID занятия не совпадает");
 
@@ -98,28 +82,16 @@ namespace GymManagement.Services.Implementations
 
                 await _classRepository.UpdateAsync(existing, cancellationToken);
                 return ServiceResult<ClassDto>.Success(_mapper.Map<ClassDto>(existing));
-            }
-            catch (Exception ex)
-            {
-                return ServiceResult<ClassDto>.Failure(ex.Message);
-            }
         }
 
         public async Task<ServiceResult<bool>> DeleteClassAsync(int id, CancellationToken cancellationToken)
         {
-            try
-            {
                 var classEntity = await _classRepository.GetByIdAsync(id, cancellationToken);
                 if (classEntity == null)
                     return ServiceResult<bool>.Failure("Занятие не найдено", 404);
 
                 await _classRepository.DeleteAsync(id, cancellationToken);
                 return ServiceResult<bool>.Success(true);
-            }
-            catch (Exception ex)
-            {
-                return ServiceResult<bool>.Failure(ex.Message);
-            }
         }
     }
 }

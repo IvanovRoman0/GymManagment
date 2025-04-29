@@ -66,12 +66,9 @@ namespace GymManagment.Infrastructure.Repositories
 
         public async Task DeleteAsync(int id, CancellationToken cancellationToken)
         {
-            var payment = await _context.Payments.FindAsync(id);
-            if (payment != null)
-            {
-                _context.Payments.Remove(payment);
-                await _context.SaveChangesAsync(cancellationToken);
-            }
+            await _context.Database.ExecuteSqlRawAsync(
+                "DELETE FROM \"Gym\".\"payments\" WHERE \"id\" = {0}",
+                id);
         }
 
         public async Task<bool> ExistsAsync(int id, CancellationToken cancellationToken)

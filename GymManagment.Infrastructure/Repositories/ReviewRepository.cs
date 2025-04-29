@@ -44,12 +44,9 @@ namespace GymManagment.Infrastructure.Repositories
 
         public async Task DeleteAsync(int id, CancellationToken cancellationToken)
         {
-            var review = await _context.Reviews.FindAsync(id);
-            if (review != null)
-            {
-                _context.Reviews.Remove(review);
-                await _context.SaveChangesAsync(cancellationToken);
-            }
+            await _context.Database.ExecuteSqlRawAsync(
+               "DELETE FROM \"Gym\".\"reviews\" WHERE \"id\" = {0}",
+               id);
         }
     }
 }

@@ -31,8 +31,6 @@ namespace GymManagement.Services.Implementations
 
         public async Task<ServiceResult<EquipmentDto>> CreateEquipmentAsync(EquipmentDto equipmentDto, CancellationToken cancellationToken)
         {
-            try
-            {
                 if (!await _gymRepository.ExistsAsync(equipmentDto.GymId, cancellationToken))
                     return ServiceResult<EquipmentDto>.Failure("Зал не найден", 404);
 
@@ -43,11 +41,6 @@ namespace GymManagement.Services.Implementations
                 await _equipmentRepository.AddAsync(equipment, cancellationToken);
                 equipmentDto.Id = equipment.id;
                 return ServiceResult<EquipmentDto>.Success(equipmentDto);
-            }
-            catch (Exception ex)
-            {
-                return ServiceResult<EquipmentDto>.Failure(ex.Message);
-            }
         }
 
         public async Task<ServiceResult<EquipmentDto>> GetEquipmentByIdAsync(int id, CancellationToken cancellationToken)
@@ -60,21 +53,12 @@ namespace GymManagement.Services.Implementations
 
         public async Task<ServiceResult<IEnumerable<EquipmentDto>>> GetAllEquipmentAsync(CancellationToken cancellationToken)
         {
-            try
-            {
                 var equipment = await _equipmentRepository.GetAllAsync(cancellationToken);
                 return ServiceResult<IEnumerable<EquipmentDto>>.Success(_mapper.Map<IEnumerable<EquipmentDto>>(equipment));
-            }
-            catch (Exception ex)
-            {
-                return ServiceResult<IEnumerable<EquipmentDto>>.Failure(ex.Message);
-            }
         }
 
         public async Task<ServiceResult<EquipmentDto>> UpdateEquipmentAsync(int id, EquipmentDto equipmentDto, CancellationToken cancellationToken)
         {
-            try
-            {
                 if (id != equipmentDto.Id)
                     return ServiceResult<EquipmentDto>.Failure("ID оборудования не совпадает");
 
@@ -96,28 +80,16 @@ namespace GymManagement.Services.Implementations
 
                 await _equipmentRepository.UpdateAsync(existing, cancellationToken);
                 return ServiceResult<EquipmentDto>.Success(_mapper.Map<EquipmentDto>(existing));
-            }
-            catch (Exception ex)
-            {
-                return ServiceResult<EquipmentDto>.Failure(ex.Message);
-            }
         }
 
         public async Task<ServiceResult<bool>> DeleteEquipmentAsync(int id, CancellationToken cancellationToken)
         {
-            try
-            {
                 var equipment = await _equipmentRepository.GetByIdAsync(id, cancellationToken);
                 if (equipment == null)
                     return ServiceResult<bool>.Failure("Оборудование не найдено", 404);
 
                 await _equipmentRepository.DeleteAsync(id, cancellationToken);
                 return ServiceResult<bool>.Success(true);
-            }
-            catch (Exception ex)
-            {
-                return ServiceResult<bool>.Failure(ex.Message);
-            }
         }
     }
 }

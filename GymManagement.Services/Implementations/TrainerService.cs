@@ -25,8 +25,6 @@ namespace GymManagement.Services.Implementations
         }
         public async Task<ServiceResult<TrainerDto>> CreateTrainerAsync(TrainerDto trainerDto, CancellationToken cancellationToken)
         {
-            try
-            {
                 if (await _trainerRepository.EmailExistsAsync(trainerDto.Email, cancellationToken))
                     return ServiceResult<TrainerDto>.Failure("Email уже существует");
                 var trainer = Trainer.Create(
@@ -38,11 +36,6 @@ namespace GymManagement.Services.Implementations
                 await _trainerRepository.AddAsync(trainer, cancellationToken);
                 trainerDto.Id = trainer.id;
                 return ServiceResult<TrainerDto>.Success(trainerDto);
-            }
-            catch (Exception ex)
-            {
-                return ServiceResult<TrainerDto>.Failure(ex.Message);
-            }
         }
         public async Task<ServiceResult<TrainerDto>> GetTrainerByIdAsync(int id, CancellationToken cancellationToken)
         {
@@ -52,21 +45,12 @@ namespace GymManagement.Services.Implementations
         }
         public async Task<ServiceResult<IEnumerable<TrainerDto>>> GetAllTrainerAsync(CancellationToken cancellationToken)
         {
-            try
-            {
                 var trainer = await _trainerRepository.GetAllAsync(cancellationToken);
                 var trainerDtos = _mapper.Map<IEnumerable<TrainerDto>>(trainer);
                 return ServiceResult<IEnumerable<TrainerDto>>.Success(trainerDtos);
-            }
-            catch (Exception ex)
-            {
-                return ServiceResult<IEnumerable<TrainerDto>>.Failure(ex.Message);
-            }
         }
         public async Task<ServiceResult<TrainerDto>> UpdateTrainerAsync(int id, TrainerDto trainer, CancellationToken cancellationToken)
         {
-            try
-            {
                 if (!await _trainerRepository.ExistsAsync(id, cancellationToken))
                     return ServiceResult<TrainerDto>.Failure("Тренер не найден", 404);
                 if (id != trainer.Id)
@@ -86,38 +70,19 @@ namespace GymManagement.Services.Implementations
                 existingTrainer.SpecializationId = trainer.SpecializationId;
                 await _trainerRepository.UpdateAsync(existingTrainer, cancellationToken);
                 return ServiceResult<TrainerDto>.Success(_mapper.Map<TrainerDto>(existingTrainer));
-            }
-            catch (Exception ex)
-            {
-                return ServiceResult<TrainerDto>.Failure(ex.Message);
-            }
         }
         public async Task<ServiceResult<bool>> DeleteTrainerAsync(int id, CancellationToken cancellationToken)
         {
-            try
-            {
                 var trainer = await _trainerRepository.GetByIdAsync(id, cancellationToken);
                 if (trainer == null)
                     return ServiceResult<bool>.Failure("тренер не найден", 404);
                 await _trainerRepository.DeleteAsync(id);
                 return ServiceResult<bool>.Success(true);
-            }
-            catch (Exception ex)
-            {
-                return ServiceResult<bool>.Failure(ex.Message);
-            }
         }
         public async Task<ServiceResult<bool>> EmailExistsAsync(string email, CancellationToken cancellationToken)
         {
-            try
-            {
                 var exists = await _trainerRepository.EmailExistsAsync(email, cancellationToken);
                 return ServiceResult<bool>.Success(exists);
-            }
-            catch (Exception ex)
-            {
-                return ServiceResult<bool>.Failure(ex.Message);
-            }
         }
     }
 }

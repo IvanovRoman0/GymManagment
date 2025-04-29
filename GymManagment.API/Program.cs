@@ -7,6 +7,8 @@ using GymManagment.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using System.Text.Json.Serialization;
+using GymManagement.API;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -68,7 +70,7 @@ app.UseHttpsRedirection();
 app.UseRouting();
 
 app.UseAuthorization();
-
+app.UseMiddleware<Middleware>();
 app.MapControllers();
 
 app.UseExceptionHandler("/ошибка");

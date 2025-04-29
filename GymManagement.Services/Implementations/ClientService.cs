@@ -22,8 +22,6 @@ namespace GymManagement.Services.Implementations
         }
         public async Task<ServiceResult<ClientDto>> CreateClientAsync(ClientDto clientDto, CancellationToken cancellationToken)
         {
-            try
-            {
                 if (await _clientRepository.EmailExistsAsync(clientDto.Email, cancellationToken))
                     return ServiceResult<ClientDto>.Failure("Email уже существует");
                 var client = Client.Create(
@@ -36,11 +34,7 @@ namespace GymManagement.Services.Implementations
                 await _clientRepository.AddAsync(client, cancellationToken);
                 clientDto.Id = client.id;
                 return ServiceResult<ClientDto>.Success(clientDto);
-            }
-            catch (Exception ex)
-            {
-                return ServiceResult<ClientDto>.Failure(ex.Message);
-            }
+        
         }
         public async Task<ServiceResult<ClientDto>> GetClientByIdAsync(int id, CancellationToken cancellationToken)
         {
@@ -50,21 +44,14 @@ namespace GymManagement.Services.Implementations
         }
         public async Task<ServiceResult<IEnumerable<ClientDto>>> GetAllClientAsync(CancellationToken cancellationToken)
         {
-            try
-            {
+            
                 var clients = await _clientRepository.GetAllAsync(cancellationToken);
                 var clientDtos = _mapper.Map<IEnumerable<ClientDto>>(clients);
                 return ServiceResult<IEnumerable<ClientDto>>.Success(clientDtos);
-            }
-            catch (Exception ex)
-            {
-                return ServiceResult<IEnumerable<ClientDto>>.Failure(ex.Message);
-            }
+          
         }
         public async Task<ServiceResult<ClientDto>> UpdateClientAsync(int id, ClientDto client, CancellationToken cancellationToken)
         {
-            try
-            {
                 if (id != client.Id)
                     return ServiceResult<ClientDto>.Failure("ID клиента не совпадает");
                 var existingClient = await _clientRepository.GetByIdAsync(id, cancellationToken);
@@ -83,38 +70,19 @@ namespace GymManagement.Services.Implementations
                 existingClient.Gender = client.Gender;
                 await _clientRepository.UpdateAsync(existingClient, cancellationToken);
                 return ServiceResult<ClientDto>.Success(_mapper.Map<ClientDto>(existingClient));
-            }
-            catch (Exception ex)
-            {
-                return ServiceResult<ClientDto>.Failure(ex.Message);
-            }
         }
         public async Task<ServiceResult<bool>> DeleteClientAsync(int id, CancellationToken cancellationToken)
         {
-            try
-            {
                 var client = await _clientRepository.GetByIdAsync(id, cancellationToken);
                 if (client == null)
                     return ServiceResult<bool>.Failure("Клиент не найден", 404);
                 await _clientRepository.DeleteAsync(id);
                 return ServiceResult<bool>.Success(true);
-            }
-            catch (Exception ex) 
-            {
-                return ServiceResult<bool>.Failure(ex.Message);
-            }
         }
         public async Task<ServiceResult<bool>> EmailExistsAsync(string email, CancellationToken cancellationToken)
         {
-            try
-            {
                 var exists = await _clientRepository.EmailExistsAsync(email, cancellationToken);
-                return ServiceResult<bool>.Success(exists);
-            }
-            catch (Exception ex)
-            {
-                return ServiceResult<bool>.Failure(ex.Message);
-            }
+                return ServiceResult<bool>.Success(exists); 
         }
     }
 }

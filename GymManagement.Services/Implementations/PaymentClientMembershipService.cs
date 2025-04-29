@@ -34,8 +34,6 @@ namespace GymManagement.Services.Implementations
 
         public async Task<ServiceResult> LinkPaymentToMembershipAsync(PaymentClientMembershipDto paymentclientmembershipDto, CancellationToken cancellationToken)
         {
-            try
-            {
                 if (!await _paymentRepository.ExistsAsync(paymentclientmembershipDto.PaymentId, cancellationToken))
                     return ServiceResult.Failure("Платеж не найден", 404);
 
@@ -53,27 +51,15 @@ namespace GymManagement.Services.Implementations
 
                 await _repository.AddAsync(entity, cancellationToken);
                 return ServiceResult.Success();
-            }
-            catch (Exception ex)
-            {
-                return ServiceResult.Failure(ex.Message);
-            }
         }
 
         public async Task<ServiceResult> UnlinkPaymentFromMembershipAsync(int paymentId, int clientMembershipId, CancellationToken cancellationToken)
         {
-            try
-            {
                 if (!await _repository.ExistsAsync(paymentId, clientMembershipId, cancellationToken))
                     return ServiceResult.Failure("Связь не найдена", 404);
 
                 await _repository.DeleteAsync(paymentId, clientMembershipId, cancellationToken);
                 return ServiceResult.Success();
-            }
-            catch (Exception ex)
-            {
-                return ServiceResult.Failure(ex.Message);
-            }
         }
     }
 }

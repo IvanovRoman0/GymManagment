@@ -33,12 +33,9 @@ namespace GymManagement.Infrastructure.Repositories
 
         public async Task DeleteAsync(int id, CancellationToken cancellationToken = default)
         {
-            var membership = await _context.Memberships.FindAsync(id);
-            if (membership != null)
-            {
-                _context.Memberships.Remove(membership);
-                await _context.SaveChangesAsync(cancellationToken);
-            }
+            await _context.Database.ExecuteSqlRawAsync(
+               "DELETE FROM \"Gym\".\"memberships\" WHERE \"id\" = {0}",
+               id);
         }
 
         public async Task UpdateAsync(Membership membership, CancellationToken cancellationToken = default)

@@ -24,19 +24,12 @@ namespace GymManagement.Services.Implementations
         }
         public async Task<ServiceResult<SpecializationDto>> CreateSpecializationAsync(SpecializationDto specializationDto, CancellationToken cancellationToken)
         {
-            try
-            {
                 if (await _specializationRepository.NameExistsAsync(specializationDto.SpecializationName, cancellationToken))
                     return ServiceResult<SpecializationDto>.Failure("Специализация с таким названием уже существут");
                 var specialization = Specialization.Create(specializationDto.SpecializationName);
                 await _specializationRepository.AddAsync(specialization, cancellationToken);
                 specializationDto.Id = specialization.id;
                 return ServiceResult<SpecializationDto>.Success(specializationDto);
-            }
-            catch (Exception ex)
-            {
-                return ServiceResult<SpecializationDto>.Failure(ex.Message);
-            }
         }
         public async Task<ServiceResult<SpecializationDto>> GetSpecializationByIdAsync(int id, CancellationToken cancellationToken)
         {
@@ -46,21 +39,12 @@ namespace GymManagement.Services.Implementations
         }
         public async Task<ServiceResult<IEnumerable<SpecializationDto>>> GetAllSpecializationAsync(CancellationToken cancellationToken)
         {
-            try
-            {
                 var specialization = await _specializationRepository.GetAllAsync(cancellationToken);
                 var specializationDtos = _mapper.Map<IEnumerable<SpecializationDto>>(specialization);
                 return ServiceResult<IEnumerable<SpecializationDto>>.Success(specializationDtos);
-            }
-            catch (Exception ex)
-            {
-                return ServiceResult<IEnumerable<SpecializationDto>>.Failure(ex.Message);
-            }
         }
         public async Task<ServiceResult<SpecializationDto>> UpdateSpecializationAsync(int id, SpecializationDto specializationDto, CancellationToken cancellationToken)
         {
-            try
-            {
                 if (id != specializationDto.Id)
                     return ServiceResult<SpecializationDto>.Failure("ID специализации не совпадает");
 
@@ -77,27 +61,15 @@ namespace GymManagement.Services.Implementations
                 existing.SpecializationName = specializationDto.SpecializationName;
                 await _specializationRepository.UpdateAsync(existing, cancellationToken);
                 return ServiceResult<SpecializationDto>.Success(_mapper.Map<SpecializationDto>(existing));
-            }
-            catch (Exception ex)
-            {
-                return ServiceResult<SpecializationDto>.Failure(ex.Message);
-            }
         }
 
         public async Task<ServiceResult<bool>> DeleteSpecializationAsync(int id, CancellationToken cancellationToken)
         {
-            try
-            {
                 var specialization = await _specializationRepository.GetByIdAsync(id, cancellationToken);
                 if (specialization == null)
                     return ServiceResult<bool>.Failure("Специализация не найдена", 404);
                 await _specializationRepository.DeleteAsync(id, cancellationToken);
                 return ServiceResult<bool>.Success(true);
-            }
-            catch (Exception ex)
-            {
-                return ServiceResult<bool>.Failure(ex.Message);
-            }
         }
     }
 }
